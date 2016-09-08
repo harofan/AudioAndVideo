@@ -16,7 +16,9 @@
 
 #import "Masonry.h"
 
-@interface MainVC ()
+#import "AudioRecordVC.h"
+
+@interface MainVC ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
 
@@ -25,10 +27,76 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.view.backgroundColor = [UIColor orangeColor];
+    
+    [self createUpUI];
+    
 }
 
 -(void)createUpUI{
     
+    UITableView * tableView = [[UITableView alloc]init];
+    
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    
+    [self.view addSubview:tableView];
+    
+    [tableView makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.edges.equalTo(0);
+    }];
+    
+    tableView.dataSource = self;
+    
+    tableView.delegate = self;
+    
 }
 
+#pragma mark -  dataSource
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 20;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    
+    switch (indexPath.row) {
+        case 0:
+            cell.textLabel.text = @"音频录制";
+            break;
+            
+        default:
+            break;
+    }
+    
+    return cell;
+    
+}
+
+#pragma mark -  delegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    switch (indexPath.row) {
+        case 0:
+        {
+            AudioRecordVC * vc = [[AudioRecordVC alloc]init];
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
 @end
