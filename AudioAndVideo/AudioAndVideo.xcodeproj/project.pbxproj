@@ -1,0 +1,434 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0684B2A11D81464500D10603 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A01D81464500D10603 /* main.m */; };
+		0684B2A41D81464500D10603 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A31D81464500D10603 /* AppDelegate.m */; };
+		0684B2AC1D81464500D10603 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0684B2AB1D81464500D10603 /* Assets.xcassets */; };
+		0684B2AF1D81464500D10603 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0684B2AD1D81464500D10603 /* LaunchScreen.storyboard */; };
+		0684B2B71D8146F800D10603 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2B61D8146F800D10603 /* IJKMediaFramework.framework */; };
+		0684B2B91D81476300D10603 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2B81D81476300D10603 /* AudioToolbox.framework */; };
+		0684B2BB1D81477100D10603 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2BA1D81477100D10603 /* AVFoundation.framework */; };
+		0684B2BD1D81478200D10603 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2BC1D81478200D10603 /* CoreMedia.framework */; };
+		0684B2BF1D81487F00D10603 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2BE1D81487F00D10603 /* VideoToolbox.framework */; };
+		0684B2C11D81488C00D10603 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2C01D81488C00D10603 /* OpenGLES.framework */; };
+		0684B2C31D81489800D10603 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2C21D81489800D10603 /* MobileCoreServices.framework */; };
+		0684B2C51D8148A800D10603 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2C41D8148A800D10603 /* MediaPlayer.framework */; };
+		0684B2C71D8148BA00D10603 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2C61D8148BA00D10603 /* libz.tbd */; };
+		0684B2C91D8148C300D10603 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2C81D8148C300D10603 /* libbz2.tbd */; };
+		0684B2CB1D8148DF00D10603 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0684B2CA1D8148DF00D10603 /* CoreVideo.framework */; };
+		0684B2CF1D81496000D10603 /* MainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2CD1D81496000D10603 /* MainVC.m */; };
+		0684B2D01D81496000D10603 /* MainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0684B2CE1D81496000D10603 /* MainVC.xib */; };
+		5090AC0DCD0DC807E7646F02 /* libPods-AudioAndVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8778A2AD7A7A3A34D3B8B5 /* libPods-AudioAndVideo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0684B29C1D81464500D10603 /* AudioAndVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioAndVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0684B2A01D81464500D10603 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0684B2A21D81464500D10603 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0684B2A31D81464500D10603 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0684B2AB1D81464500D10603 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0684B2AE1D81464500D10603 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0684B2B01D81464500D10603 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0684B2B61D8146F800D10603 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
+		0684B2B81D81476300D10603 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0684B2BA1D81477100D10603 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0684B2BC1D81478200D10603 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		0684B2BE1D81487F00D10603 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		0684B2C01D81488C00D10603 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		0684B2C21D81489800D10603 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0684B2C41D8148A800D10603 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		0684B2C61D8148BA00D10603 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		0684B2C81D8148C300D10603 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
+		0684B2CA1D8148DF00D10603 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		0684B2CC1D81496000D10603 /* MainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainVC.h; sourceTree = "<group>"; };
+		0684B2CD1D81496000D10603 /* MainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainVC.m; sourceTree = "<group>"; };
+		0684B2CE1D81496000D10603 /* MainVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainVC.xib; sourceTree = "<group>"; };
+		8A363FF6D6D9A4989F95A212 /* Pods-AudioAndVideo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioAndVideo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AudioAndVideo/Pods-AudioAndVideo.debug.xcconfig"; sourceTree = "<group>"; };
+		99CF2E6B7C0353DB9C1364F5 /* Pods-AudioAndVideo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioAndVideo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AudioAndVideo/Pods-AudioAndVideo.release.xcconfig"; sourceTree = "<group>"; };
+		BE8778A2AD7A7A3A34D3B8B5 /* libPods-AudioAndVideo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioAndVideo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0684B2991D81464500D10603 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0684B2CB1D8148DF00D10603 /* CoreVideo.framework in Frameworks */,
+				0684B2C91D8148C300D10603 /* libbz2.tbd in Frameworks */,
+				0684B2C71D8148BA00D10603 /* libz.tbd in Frameworks */,
+				0684B2C51D8148A800D10603 /* MediaPlayer.framework in Frameworks */,
+				0684B2C31D81489800D10603 /* MobileCoreServices.framework in Frameworks */,
+				0684B2C11D81488C00D10603 /* OpenGLES.framework in Frameworks */,
+				0684B2BF1D81487F00D10603 /* VideoToolbox.framework in Frameworks */,
+				0684B2BD1D81478200D10603 /* CoreMedia.framework in Frameworks */,
+				0684B2BB1D81477100D10603 /* AVFoundation.framework in Frameworks */,
+				0684B2B91D81476300D10603 /* AudioToolbox.framework in Frameworks */,
+				0684B2B71D8146F800D10603 /* IJKMediaFramework.framework in Frameworks */,
+				5090AC0DCD0DC807E7646F02 /* libPods-AudioAndVideo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0684B2931D81464500D10603 = {
+			isa = PBXGroup;
+			children = (
+				0684B29E1D81464500D10603 /* AudioAndVideo */,
+				0684B29D1D81464500D10603 /* Products */,
+				37C9550F5AD47DF769843B59 /* Pods */,
+				27C0FCB8FDB66167E9930DE5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		0684B29D1D81464500D10603 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0684B29C1D81464500D10603 /* AudioAndVideo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0684B29E1D81464500D10603 /* AudioAndVideo */ = {
+			isa = PBXGroup;
+			children = (
+				0684B2CC1D81496000D10603 /* MainVC.h */,
+				0684B2CD1D81496000D10603 /* MainVC.m */,
+				0684B2CE1D81496000D10603 /* MainVC.xib */,
+				0684B2A21D81464500D10603 /* AppDelegate.h */,
+				0684B2A31D81464500D10603 /* AppDelegate.m */,
+				0684B2AB1D81464500D10603 /* Assets.xcassets */,
+				0684B2AD1D81464500D10603 /* LaunchScreen.storyboard */,
+				0684B2B01D81464500D10603 /* Info.plist */,
+				0684B29F1D81464500D10603 /* Supporting Files */,
+			);
+			path = AudioAndVideo;
+			sourceTree = "<group>";
+		};
+		0684B29F1D81464500D10603 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0684B2CA1D8148DF00D10603 /* CoreVideo.framework */,
+				0684B2C81D8148C300D10603 /* libbz2.tbd */,
+				0684B2C61D8148BA00D10603 /* libz.tbd */,
+				0684B2C41D8148A800D10603 /* MediaPlayer.framework */,
+				0684B2C21D81489800D10603 /* MobileCoreServices.framework */,
+				0684B2C01D81488C00D10603 /* OpenGLES.framework */,
+				0684B2BE1D81487F00D10603 /* VideoToolbox.framework */,
+				0684B2BC1D81478200D10603 /* CoreMedia.framework */,
+				0684B2BA1D81477100D10603 /* AVFoundation.framework */,
+				0684B2B81D81476300D10603 /* AudioToolbox.framework */,
+				0684B2B61D8146F800D10603 /* IJKMediaFramework.framework */,
+				0684B2A01D81464500D10603 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		27C0FCB8FDB66167E9930DE5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE8778A2AD7A7A3A34D3B8B5 /* libPods-AudioAndVideo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		37C9550F5AD47DF769843B59 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8A363FF6D6D9A4989F95A212 /* Pods-AudioAndVideo.debug.xcconfig */,
+				99CF2E6B7C0353DB9C1364F5 /* Pods-AudioAndVideo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0684B29B1D81464500D10603 /* AudioAndVideo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0684B2B31D81464500D10603 /* Build configuration list for PBXNativeTarget "AudioAndVideo" */;
+			buildPhases = (
+				5B4E3006F730F04F03881CF3 /* [CP] Check Pods Manifest.lock */,
+				0684B2981D81464500D10603 /* Sources */,
+				0684B2991D81464500D10603 /* Frameworks */,
+				0684B29A1D81464500D10603 /* Resources */,
+				7607D99F3B87CB4801F10227 /* [CP] Embed Pods Frameworks */,
+				AD13B83816F6A6D07F111865 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudioAndVideo;
+			productName = AudioAndVideo;
+			productReference = 0684B29C1D81464500D10603 /* AudioAndVideo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0684B2941D81464500D10603 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = LY;
+				TargetAttributes = {
+					0684B29B1D81464500D10603 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = PD5DSFUB55;
+					};
+				};
+			};
+			buildConfigurationList = 0684B2971D81464500D10603 /* Build configuration list for PBXProject "AudioAndVideo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0684B2931D81464500D10603;
+			productRefGroup = 0684B29D1D81464500D10603 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0684B29B1D81464500D10603 /* AudioAndVideo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0684B29A1D81464500D10603 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0684B2D01D81496000D10603 /* MainVC.xib in Resources */,
+				0684B2AF1D81464500D10603 /* LaunchScreen.storyboard in Resources */,
+				0684B2AC1D81464500D10603 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5B4E3006F730F04F03881CF3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7607D99F3B87CB4801F10227 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AudioAndVideo/Pods-AudioAndVideo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD13B83816F6A6D07F111865 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AudioAndVideo/Pods-AudioAndVideo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0684B2981D81464500D10603 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0684B2CF1D81496000D10603 /* MainVC.m in Sources */,
+				0684B2A41D81464500D10603 /* AppDelegate.m in Sources */,
+				0684B2A11D81464500D10603 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0684B2AD1D81464500D10603 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0684B2AE1D81464500D10603 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0684B2B11D81464500D10603 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0684B2B21D81464500D10603 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0684B2B41D81464500D10603 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A363FF6D6D9A4989F95A212 /* Pods-AudioAndVideo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AudioAndVideo",
+				);
+				INFOPLIST_FILE = AudioAndVideo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0684B2B51D81464500D10603 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99CF2E6B7C0353DB9C1364F5 /* Pods-AudioAndVideo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AudioAndVideo",
+				);
+				INFOPLIST_FILE = AudioAndVideo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0684B2971D81464500D10603 /* Build configuration list for PBXProject "AudioAndVideo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0684B2B11D81464500D10603 /* Debug */,
+				0684B2B21D81464500D10603 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0684B2B31D81464500D10603 /* Build configuration list for PBXNativeTarget "AudioAndVideo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0684B2B41D81464500D10603 /* Debug */,
+				0684B2B51D81464500D10603 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0684B2941D81464500D10603 /* Project object */;
+}
