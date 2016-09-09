@@ -50,6 +50,7 @@
     
     UIButton * startBtn = [[UIButton alloc]init];
     
+    //开始/继续录音
     [[startBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
        
         [self.recorder record];
@@ -58,9 +59,9 @@
     
     UIButton * pauseBtn = [[UIButton alloc]init];
     
+    //暂停录音
     [[pauseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-       
-        
+               
         [self.recorder pause];
         
     }];
@@ -97,10 +98,14 @@
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:nil];
     
+    //创建路径
     NSString * path = [[NSString documentPath] stringByAppendingString:@"/haha.aac"];
     
     NSURL * url = [NSURL fileURLWithPath:path];
     
+    //第三方解决方案
+    // 录制PCM => 第三方库(lame) => mp3数据 => 上传
+    // 录制PCM => speex格式压缩 => 上传
     NSDictionary * settings = @{
                                 AVFormatIDKey:@(kAudioFormatMPEG4AAC),
                                 AVSampleRateKey:@(8000),    //采样频率 每秒
@@ -108,8 +113,11 @@
                                 AVLinearPCMBitDepthKey:@(8) //位深
                                 };
     
+    //PCM数据大小 44字节 采样率 * 位深 * 声道
+    
     NSError * err= nil;
     
+    //创建录制对象,避免被释放
     self.recorder = [[AVAudioRecorder alloc] initWithURL:url settings:settings error:&err];
 }
 @end

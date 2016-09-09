@@ -18,6 +18,10 @@
 
 #import "AudioRecordVC.h"
 
+#import "VideoRecordVC.h"
+
+
+
 @interface MainVC ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -73,6 +77,9 @@
         case 0:
             cell.textLabel.text = @"音频录制";
             break;
+        case 1:
+            cell.textLabel.text = @"视频录制";
+            break;
             
         default:
             break;
@@ -89,6 +96,14 @@
         case 0:
         {
             AudioRecordVC * vc = [[AudioRecordVC alloc]init];
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        case 1:
+        {
+            VideoRecordVC * vc = [[VideoRecordVC alloc]init];
             
             [self.navigationController pushViewController:vc animated:YES];
         }

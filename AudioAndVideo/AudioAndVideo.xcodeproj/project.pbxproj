@@ -27,6 +27,7 @@
 		0684B2D51D8154CF00D10603 /* AudioRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2D31D8154CF00D10603 /* AudioRecordVC.m */; };
 		0684B2D61D8154CF00D10603 /* AudioRecordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0684B2D41D8154CF00D10603 /* AudioRecordVC.xib */; };
 		0684B2D91D8159C400D10603 /* NSString+path.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2D81D8159C400D10603 /* NSString+path.m */; };
+		0684B2DE1D816CC700D10603 /* VideoRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2DC1D816CC700D10603 /* VideoRecordVC.m */; };
 		E89BE5194A1B5912B636C349 /* Pods_AudioAndVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CEED29A86B09FB498963006 /* Pods_AudioAndVideo.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,8 @@
 		0684B2D41D8154CF00D10603 /* AudioRecordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioRecordVC.xib; sourceTree = "<group>"; };
 		0684B2D71D8159C400D10603 /* NSString+path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+path.h"; sourceTree = "<group>"; };
 		0684B2D81D8159C400D10603 /* NSString+path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+path.m"; sourceTree = "<group>"; };
+		0684B2DB1D816CC700D10603 /* VideoRecordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoRecordVC.h; sourceTree = "<group>"; };
+		0684B2DC1D816CC700D10603 /* VideoRecordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoRecordVC.m; sourceTree = "<group>"; };
 		8A363FF6D6D9A4989F95A212 /* Pods-AudioAndVideo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioAndVideo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AudioAndVideo/Pods-AudioAndVideo.debug.xcconfig"; sourceTree = "<group>"; };
 		8CEED29A86B09FB498963006 /* Pods_AudioAndVideo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AudioAndVideo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CF2E6B7C0353DB9C1364F5 /* Pods-AudioAndVideo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioAndVideo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AudioAndVideo/Pods-AudioAndVideo.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 			children = (
 				0684B2D71D8159C400D10603 /* NSString+path.h */,
 				0684B2D81D8159C400D10603 /* NSString+path.m */,
+				0684B2DA1D816CA500D10603 /* VideoRecord */,
 				0684B2D11D8154A800D10603 /* AudioRecord */,
 				0684B2CC1D81496000D10603 /* MainVC.h */,
 				0684B2CD1D81496000D10603 /* MainVC.m */,
@@ -149,6 +153,15 @@
 				0684B2D41D8154CF00D10603 /* AudioRecordVC.xib */,
 			);
 			name = AudioRecord;
+			sourceTree = "<group>";
+		};
+		0684B2DA1D816CA500D10603 /* VideoRecord */ = {
+			isa = PBXGroup;
+			children = (
+				0684B2DB1D816CC700D10603 /* VideoRecordVC.h */,
+				0684B2DC1D816CC700D10603 /* VideoRecordVC.m */,
+			);
+			name = VideoRecord;
 			sourceTree = "<group>";
 		};
 		27C0FCB8FDB66167E9930DE5 /* Frameworks */ = {
@@ -292,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0684B2D91D8159C400D10603 /* NSString+path.m in Sources */,
+				0684B2DE1D816CC700D10603 /* VideoRecordVC.m in Sources */,
 				0684B2D51D8154CF00D10603 /* AudioRecordVC.m in Sources */,
 				0684B2CF1D81496000D10603 /* MainVC.m in Sources */,
 				0684B2A41D81464500D10603 /* AppDelegate.m in Sources */,
