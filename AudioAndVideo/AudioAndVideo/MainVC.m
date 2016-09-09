@@ -20,7 +20,7 @@
 
 #import "VideoRecordVC.h"
 
-
+#import "LiveVC.h"
 
 @interface MainVC ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -81,6 +81,10 @@
             cell.textLabel.text = @"视频录制";
             break;
             
+        case 2:
+            cell.textLabel.text = @"直播采集";
+            break;
+            
         default:
             break;
     }
@@ -104,6 +108,15 @@
         case 1:
         {
             VideoRecordVC * vc = [[VideoRecordVC alloc]init];
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        case 2:
+        {
+            LiveVC * vc = [[LiveVC
+                            alloc]init];
             
             [self.navigationController pushViewController:vc animated:YES];
         }

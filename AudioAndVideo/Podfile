@@ -8,5 +8,6 @@ target 'AudioAndVideo' do
   # Pods for AudioAndVideo
 pod 'Masonry'
 pod ‘ReactiveCocoa’
+pod 'LFLiveKit'
 
 end

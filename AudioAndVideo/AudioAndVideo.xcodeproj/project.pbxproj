@@ -28,6 +28,8 @@
 		0684B2D61D8154CF00D10603 /* AudioRecordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0684B2D41D8154CF00D10603 /* AudioRecordVC.xib */; };
 		0684B2D91D8159C400D10603 /* NSString+path.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2D81D8159C400D10603 /* NSString+path.m */; };
 		0684B2DE1D816CC700D10603 /* VideoRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2DC1D816CC700D10603 /* VideoRecordVC.m */; };
+		068E56A61D829F8C00FF6806 /* LiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 068E56A41D829F8C00FF6806 /* LiveVC.m */; };
+		068E56A71D829F8C00FF6806 /* LiveVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 068E56A51D829F8C00FF6806 /* LiveVC.xib */; };
 		E89BE5194A1B5912B636C349 /* Pods_AudioAndVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CEED29A86B09FB498963006 /* Pods_AudioAndVideo.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,9 @@
 		0684B2D81D8159C400D10603 /* NSString+path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+path.m"; sourceTree = "<group>"; };
 		0684B2DB1D816CC700D10603 /* VideoRecordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoRecordVC.h; sourceTree = "<group>"; };
 		0684B2DC1D816CC700D10603 /* VideoRecordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoRecordVC.m; sourceTree = "<group>"; };
+		068E56A31D829F8C00FF6806 /* LiveVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveVC.h; sourceTree = "<group>"; };
+		068E56A41D829F8C00FF6806 /* LiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveVC.m; sourceTree = "<group>"; };
+		068E56A51D829F8C00FF6806 /* LiveVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveVC.xib; sourceTree = "<group>"; };
 		8A363FF6D6D9A4989F95A212 /* Pods-AudioAndVideo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioAndVideo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AudioAndVideo/Pods-AudioAndVideo.debug.xcconfig"; sourceTree = "<group>"; };
 		8CEED29A86B09FB498963006 /* Pods_AudioAndVideo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AudioAndVideo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CF2E6B7C0353DB9C1364F5 /* Pods-AudioAndVideo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioAndVideo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AudioAndVideo/Pods-AudioAndVideo.release.xcconfig"; sourceTree = "<group>"; };
@@ -111,6 +116,7 @@
 			children = (
 				0684B2D71D8159C400D10603 /* NSString+path.h */,
 				0684B2D81D8159C400D10603 /* NSString+path.m */,
+				068E56A01D829EED00FF6806 /* Live */,
 				0684B2DA1D816CA500D10603 /* VideoRecord */,
 				0684B2D11D8154A800D10603 /* AudioRecord */,
 				0684B2CC1D81496000D10603 /* MainVC.h */,
@@ -162,6 +168,32 @@
 				0684B2DC1D816CC700D10603 /* VideoRecordVC.m */,
 			);
 			name = VideoRecord;
+			sourceTree = "<group>";
+		};
+		068E56A01D829EED00FF6806 /* Live */ = {
+			isa = PBXGroup;
+			children = (
+				068E56A21D829F0200FF6806 /* View */,
+				068E56A11D829EFA00FF6806 /* VC */,
+			);
+			name = Live;
+			sourceTree = "<group>";
+		};
+		068E56A11D829EFA00FF6806 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				068E56A31D829F8C00FF6806 /* LiveVC.h */,
+				068E56A41D829F8C00FF6806 /* LiveVC.m */,
+				068E56A51D829F8C00FF6806 /* LiveVC.xib */,
+			);
+			name = VC;
+			sourceTree = "<group>";
+		};
+		068E56A21D829F0200FF6806 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		27C0FCB8FDB66167E9930DE5 /* Frameworks */ = {
@@ -245,6 +277,7 @@
 				0684B2D61D8154CF00D10603 /* AudioRecordVC.xib in Resources */,
 				0684B2D01D81496000D10603 /* MainVC.xib in Resources */,
 				0684B2AF1D81464500D10603 /* LaunchScreen.storyboard in Resources */,
+				068E56A71D829F8C00FF6806 /* LiveVC.xib in Resources */,
 				0684B2AC1D81464500D10603 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0684B2D91D8159C400D10603 /* NSString+path.m in Sources */,
+				068E56A61D829F8C00FF6806 /* LiveVC.m in Sources */,
 				0684B2DE1D816CC700D10603 /* VideoRecordVC.m in Sources */,
 				0684B2D51D8154CF00D10603 /* AudioRecordVC.m in Sources */,
 				0684B2CF1D81496000D10603 /* MainVC.m in Sources */,
