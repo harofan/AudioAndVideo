@@ -71,21 +71,14 @@
 #pragma mark -  生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-
-    self.navigationController.navigationBar.hidden = YES;
     
+    //设置UI
+    [self createupUI];
+    
+    //闪光灯
     _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
-    _torchMode = AVCaptureTorchModeOn;
-    
-    _startOrStopBtn.layer.cornerRadius = 10;
-    
-    _startOrStopBtn.layer.masksToBounds = YES;
-    
-    [self.startOrStopBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    
-    [self.startOrStopBtn setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
+    _torchMode = AVCaptureTorchModeOff;
     
     //开始直播按钮
     @weakify(self);
@@ -241,6 +234,17 @@
 
 #pragma mark -  UI
 -(void)createupUI{
+    
+    self.navigationController.navigationBar.hidden = YES;
+    
+    //圆角
+    _startOrStopBtn.layer.cornerRadius = 10;
+    
+    _startOrStopBtn.layer.masksToBounds = YES;
+    
+    [self.startOrStopBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    
+    [self.startOrStopBtn setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
     
     self.view.autoresizingMask = YES;
     
