@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0683A5921D865B630017F421 /* FYProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0683A5911D865B630017F421 /* FYProgressHUD.m */; };
 		0684B2A11D81464500D10603 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A01D81464500D10603 /* main.m */; };
 		0684B2A41D81464500D10603 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A31D81464500D10603 /* AppDelegate.m */; };
 		0684B2AC1D81464500D10603 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0684B2AB1D81464500D10603 /* Assets.xcassets */; };
@@ -34,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0683A5901D865B630017F421 /* FYProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYProgressHUD.h; sourceTree = "<group>"; };
+		0683A5911D865B630017F421 /* FYProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYProgressHUD.m; sourceTree = "<group>"; };
 		0684B29C1D81464500D10603 /* AudioAndVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioAndVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0684B2A01D81464500D10603 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0684B2A21D81464500D10603 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -114,6 +117,8 @@
 		0684B29E1D81464500D10603 /* AudioAndVideo */ = {
 			isa = PBXGroup;
 			children = (
+				0683A5901D865B630017F421 /* FYProgressHUD.h */,
+				0683A5911D865B630017F421 /* FYProgressHUD.m */,
 				0684B2D71D8159C400D10603 /* NSString+path.h */,
 				0684B2D81D8159C400D10603 /* NSString+path.m */,
 				068E56A01D829EED00FF6806 /* Live */,
@@ -344,6 +349,7 @@
 				0684B2CF1D81496000D10603 /* MainVC.m in Sources */,
 				0684B2A41D81464500D10603 /* AppDelegate.m in Sources */,
 				0684B2A11D81464500D10603 /* main.m in Sources */,
+				0683A5921D865B630017F421 /* FYProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

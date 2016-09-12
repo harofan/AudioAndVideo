@@ -9,5 +9,6 @@ target 'AudioAndVideo' do
 pod 'Masonry'
 pod ‘ReactiveCocoa’
 pod 'LFLiveKit'
+pod 'SVProgressHUD'
 
 end

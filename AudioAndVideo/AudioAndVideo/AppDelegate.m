@@ -22,6 +22,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //设置按钮排他性
+    [[UIButton appearance] setExclusiveTouch:YES];
+    
     self.window = [[UIWindow alloc]initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
     
     MainVC * vc = [[MainVC alloc]init];
