@@ -22,6 +22,8 @@
 
 #import "LiveVC.h"
 
+#import "IJKPlayerVC.h"
+
 @interface MainVC ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -85,6 +87,9 @@
             cell.textLabel.text = @"直播采集";
             break;
             
+        case 3:
+            cell.textLabel.text = @"播放器搭建";
+            break;
         default:
             break;
     }
@@ -115,12 +120,21 @@
             
         case 2:
         {
-            LiveVC * vc = [[LiveVC
-                            alloc]init];
+            LiveVC * vc = [[LiveVC alloc]init];
             
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
+            
+        case 3:
+        {
+            IJKPlayerVC * vc = [[IJKPlayerVC alloc]init];
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+            
             
         default:
             break;

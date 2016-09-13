@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0644CF801D879F3D00D35055 /* IJKPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0644CF7F1D879F3D00D35055 /* IJKPlayerVC.m */; };
+		0644CF831D87A91200D35055 /* IJKMediaPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0644CF821D87A91200D35055 /* IJKMediaPlayerVC.m */; };
 		0683A5921D865B630017F421 /* FYProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0683A5911D865B630017F421 /* FYProgressHUD.m */; };
 		0684B2A11D81464500D10603 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A01D81464500D10603 /* main.m */; };
 		0684B2A41D81464500D10603 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A31D81464500D10603 /* AppDelegate.m */; };
@@ -35,6 +37,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0644CF7E1D879F3D00D35055 /* IJKPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKPlayerVC.h; sourceTree = "<group>"; };
+		0644CF7F1D879F3D00D35055 /* IJKPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKPlayerVC.m; sourceTree = "<group>"; };
+		0644CF811D87A91200D35055 /* IJKMediaPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKMediaPlayerVC.h; sourceTree = "<group>"; };
+		0644CF821D87A91200D35055 /* IJKMediaPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKMediaPlayerVC.m; sourceTree = "<group>"; };
 		0683A5901D865B630017F421 /* FYProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYProgressHUD.h; sourceTree = "<group>"; };
 		0683A5911D865B630017F421 /* FYProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYProgressHUD.m; sourceTree = "<group>"; };
 		0684B29C1D81464500D10603 /* AudioAndVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioAndVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +102,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0644CF7D1D879F0900D35055 /* IJKPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				0644CF7E1D879F3D00D35055 /* IJKPlayerVC.h */,
+				0644CF7F1D879F3D00D35055 /* IJKPlayerVC.m */,
+				0644CF811D87A91200D35055 /* IJKMediaPlayerVC.h */,
+				0644CF821D87A91200D35055 /* IJKMediaPlayerVC.m */,
+			);
+			name = IJKPlayer;
+			sourceTree = "<group>";
+		};
 		0684B2931D81464500D10603 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +138,7 @@
 				0683A5911D865B630017F421 /* FYProgressHUD.m */,
 				0684B2D71D8159C400D10603 /* NSString+path.h */,
 				0684B2D81D8159C400D10603 /* NSString+path.m */,
+				0644CF7D1D879F0900D35055 /* IJKPlayer */,
 				068E56A01D829EED00FF6806 /* Live */,
 				0684B2DA1D816CA500D10603 /* VideoRecord */,
 				0684B2D11D8154A800D10603 /* AudioRecord */,
@@ -178,7 +196,6 @@
 		068E56A01D829EED00FF6806 /* Live */ = {
 			isa = PBXGroup;
 			children = (
-				068E56A21D829F0200FF6806 /* View */,
 				068E56A11D829EFA00FF6806 /* VC */,
 			);
 			name = Live;
@@ -192,13 +209,6 @@
 				068E56A51D829F8C00FF6806 /* LiveVC.xib */,
 			);
 			name = VC;
-			sourceTree = "<group>";
-		};
-		068E56A21D829F0200FF6806 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = View;
 			sourceTree = "<group>";
 		};
 		27C0FCB8FDB66167E9930DE5 /* Frameworks */ = {
@@ -345,10 +355,12 @@
 				0684B2D91D8159C400D10603 /* NSString+path.m in Sources */,
 				068E56A61D829F8C00FF6806 /* LiveVC.m in Sources */,
 				0684B2DE1D816CC700D10603 /* VideoRecordVC.m in Sources */,
+				0644CF831D87A91200D35055 /* IJKMediaPlayerVC.m in Sources */,
 				0684B2D51D8154CF00D10603 /* AudioRecordVC.m in Sources */,
 				0684B2CF1D81496000D10603 /* MainVC.m in Sources */,
 				0684B2A41D81464500D10603 /* AppDelegate.m in Sources */,
 				0684B2A11D81464500D10603 /* main.m in Sources */,
+				0644CF801D879F3D00D35055 /* IJKPlayerVC.m in Sources */,
 				0683A5921D865B630017F421 /* FYProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
