@@ -262,7 +262,7 @@
 				TargetAttributes = {
 					0684B29B1D81464500D10603 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = PD5DSFUB55;
+						DevelopmentTeam = 56M98M5X7T;
 					};
 				};
 			};
@@ -468,6 +468,8 @@
 			baseConfigurationReference = 8A363FF6D6D9A4989F95A212 /* Pods-AudioAndVideo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioAndVideo",
@@ -475,8 +477,9 @@
 				INFOPLIST_FILE = AudioAndVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo;
+				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -485,6 +488,8 @@
 			baseConfigurationReference = 99CF2E6B7C0353DB9C1364F5 /* Pods-AudioAndVideo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioAndVideo",
@@ -492,8 +497,9 @@
 				INFOPLIST_FILE = AudioAndVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo;
+				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
