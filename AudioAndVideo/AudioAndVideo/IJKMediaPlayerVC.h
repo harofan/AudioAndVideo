@@ -11,6 +11,6 @@
 @interface IJKMediaPlayerVC : UIViewController
 
 //外界给一个URL地址(可以是直播,也可以是网络视频地址)
-@property (atomic, strong) NSURL *url;  //此处线程是安全的
+@property (atomic, strong) NSString *url;  //此处线程是安全的
 
 @end

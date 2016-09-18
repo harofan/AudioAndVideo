@@ -18,6 +18,8 @@
 
 #import "Masonry.h"
 
+#import "IJKMediaPlayerVC.h"
+
 @interface IJKPlayerVC ()
 
 @end
@@ -70,6 +72,12 @@
     }];
     
     [[livePlayBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        
+        IJKMediaPlayerVC * liveVC = [[IJKMediaPlayerVC alloc] init];
+        
+        liveVC.url = @"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8";
+        
+        [self.navigationController pushViewController:liveVC animated:YES];
         
     }];
     
