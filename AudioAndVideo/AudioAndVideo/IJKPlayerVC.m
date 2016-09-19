@@ -18,7 +18,7 @@
 
 #import "Masonry.h"
 
-#import "IJKMediaPlayerVC.h"
+#import "IJKLiveVC.h"
 
 @interface IJKPlayerVC ()
 
@@ -73,15 +73,18 @@
     
     [[livePlayBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         
-        IJKMediaPlayerVC * liveVC = [[IJKMediaPlayerVC alloc] init];
+        IJKLiveVC * liveVC = [[IJKLiveVC alloc] init];
         
         liveVC.url = @"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8";
+        
+//        liveVC.url = @"https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
         
         [self.navigationController pushViewController:liveVC animated:YES];
         
     }];
     
     [[netVideoBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        
         
     }];
 }

@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0644CF801D879F3D00D35055 /* IJKPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0644CF7F1D879F3D00D35055 /* IJKPlayerVC.m */; };
-		0644CF831D87A91200D35055 /* IJKMediaPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0644CF821D87A91200D35055 /* IJKMediaPlayerVC.m */; };
+		064E41E31D8E9A92006BAEED /* IJKLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 064E41E21D8E9A92006BAEED /* IJKLiveVC.m */; };
+		064E41E81D8EA1C5006BAEED /* LiveControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 064E41E71D8EA1C5006BAEED /* LiveControlView.m */; };
 		0683A5921D865B630017F421 /* FYProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0683A5911D865B630017F421 /* FYProgressHUD.m */; };
 		0684B2A11D81464500D10603 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A01D81464500D10603 /* main.m */; };
 		0684B2A41D81464500D10603 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A31D81464500D10603 /* AppDelegate.m */; };
@@ -31,6 +32,10 @@
 		0684B2D61D8154CF00D10603 /* AudioRecordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0684B2D41D8154CF00D10603 /* AudioRecordVC.xib */; };
 		0684B2D91D8159C400D10603 /* NSString+path.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2D81D8159C400D10603 /* NSString+path.m */; };
 		0684B2DE1D816CC700D10603 /* VideoRecordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2DC1D816CC700D10603 /* VideoRecordVC.m */; };
+		068C8E561D8F78E300F4E3E4 /* LiveControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 068C8E551D8F78E300F4E3E4 /* LiveControlView.xib */; };
+		068C8E591D8F90AB00F4E3E4 /* SpeedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 068C8E581D8F90AB00F4E3E4 /* SpeedView.m */; };
+		068C8E5B1D8F90BC00F4E3E4 /* SpeedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 068C8E5A1D8F90BC00F4E3E4 /* SpeedView.xib */; };
+		068C8E5F1D8FCBD900F4E3E4 /* UIView+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 068C8E5E1D8FCBD900F4E3E4 /* UIView+extension.m */; };
 		068E56A61D829F8C00FF6806 /* LiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 068E56A41D829F8C00FF6806 /* LiveVC.m */; };
 		068E56A71D829F8C00FF6806 /* LiveVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 068E56A51D829F8C00FF6806 /* LiveVC.xib */; };
 		E89BE5194A1B5912B636C349 /* Pods_AudioAndVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CEED29A86B09FB498963006 /* Pods_AudioAndVideo.framework */; };
@@ -39,8 +44,10 @@
 /* Begin PBXFileReference section */
 		0644CF7E1D879F3D00D35055 /* IJKPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKPlayerVC.h; sourceTree = "<group>"; };
 		0644CF7F1D879F3D00D35055 /* IJKPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKPlayerVC.m; sourceTree = "<group>"; };
-		0644CF811D87A91200D35055 /* IJKMediaPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKMediaPlayerVC.h; sourceTree = "<group>"; };
-		0644CF821D87A91200D35055 /* IJKMediaPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKMediaPlayerVC.m; sourceTree = "<group>"; };
+		064E41E11D8E9A92006BAEED /* IJKLiveVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKLiveVC.h; sourceTree = "<group>"; };
+		064E41E21D8E9A92006BAEED /* IJKLiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKLiveVC.m; sourceTree = "<group>"; };
+		064E41E61D8EA1C5006BAEED /* LiveControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveControlView.h; sourceTree = "<group>"; };
+		064E41E71D8EA1C5006BAEED /* LiveControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveControlView.m; sourceTree = "<group>"; };
 		0683A5901D865B630017F421 /* FYProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYProgressHUD.h; sourceTree = "<group>"; };
 		0683A5911D865B630017F421 /* FYProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYProgressHUD.m; sourceTree = "<group>"; };
 		0684B29C1D81464500D10603 /* AudioAndVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioAndVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +78,12 @@
 		0684B2D81D8159C400D10603 /* NSString+path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+path.m"; sourceTree = "<group>"; };
 		0684B2DB1D816CC700D10603 /* VideoRecordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoRecordVC.h; sourceTree = "<group>"; };
 		0684B2DC1D816CC700D10603 /* VideoRecordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoRecordVC.m; sourceTree = "<group>"; };
+		068C8E551D8F78E300F4E3E4 /* LiveControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveControlView.xib; sourceTree = "<group>"; };
+		068C8E571D8F90AB00F4E3E4 /* SpeedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedView.h; sourceTree = "<group>"; };
+		068C8E581D8F90AB00F4E3E4 /* SpeedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedView.m; sourceTree = "<group>"; };
+		068C8E5A1D8F90BC00F4E3E4 /* SpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpeedView.xib; sourceTree = "<group>"; };
+		068C8E5D1D8FCBD900F4E3E4 /* UIView+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+extension.h"; sourceTree = "<group>"; };
+		068C8E5E1D8FCBD900F4E3E4 /* UIView+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+extension.m"; sourceTree = "<group>"; };
 		068E56A31D829F8C00FF6806 /* LiveVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveVC.h; sourceTree = "<group>"; };
 		068E56A41D829F8C00FF6806 /* LiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveVC.m; sourceTree = "<group>"; };
 		068E56A51D829F8C00FF6806 /* LiveVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveVC.xib; sourceTree = "<group>"; };
@@ -105,12 +118,34 @@
 		0644CF7D1D879F0900D35055 /* IJKPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				064E41E51D8EA19C006BAEED /* View */,
+				064E41E41D8EA193006BAEED /* Controllers */,
 				0644CF7E1D879F3D00D35055 /* IJKPlayerVC.h */,
 				0644CF7F1D879F3D00D35055 /* IJKPlayerVC.m */,
-				0644CF811D87A91200D35055 /* IJKMediaPlayerVC.h */,
-				0644CF821D87A91200D35055 /* IJKMediaPlayerVC.m */,
 			);
 			name = IJKPlayer;
+			sourceTree = "<group>";
+		};
+		064E41E41D8EA193006BAEED /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				064E41E11D8E9A92006BAEED /* IJKLiveVC.h */,
+				064E41E21D8E9A92006BAEED /* IJKLiveVC.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		064E41E51D8EA19C006BAEED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				064E41E61D8EA1C5006BAEED /* LiveControlView.h */,
+				064E41E71D8EA1C5006BAEED /* LiveControlView.m */,
+				068C8E551D8F78E300F4E3E4 /* LiveControlView.xib */,
+				068C8E571D8F90AB00F4E3E4 /* SpeedView.h */,
+				068C8E581D8F90AB00F4E3E4 /* SpeedView.m */,
+				068C8E5A1D8F90BC00F4E3E4 /* SpeedView.xib */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		0684B2931D81464500D10603 = {
@@ -138,6 +173,8 @@
 				0683A5911D865B630017F421 /* FYProgressHUD.m */,
 				0684B2D71D8159C400D10603 /* NSString+path.h */,
 				0684B2D81D8159C400D10603 /* NSString+path.m */,
+				068C8E5D1D8FCBD900F4E3E4 /* UIView+extension.h */,
+				068C8E5E1D8FCBD900F4E3E4 /* UIView+extension.m */,
 				0644CF7D1D879F0900D35055 /* IJKPlayer */,
 				068E56A01D829EED00FF6806 /* Live */,
 				0684B2DA1D816CA500D10603 /* VideoRecord */,
@@ -262,7 +299,8 @@
 				TargetAttributes = {
 					0684B29B1D81464500D10603 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 56M98M5X7T;
+						DevelopmentTeam = PD5DSFUB55;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -291,8 +329,10 @@
 			files = (
 				0684B2D61D8154CF00D10603 /* AudioRecordVC.xib in Resources */,
 				0684B2D01D81496000D10603 /* MainVC.xib in Resources */,
+				068C8E561D8F78E300F4E3E4 /* LiveControlView.xib in Resources */,
 				0684B2AF1D81464500D10603 /* LaunchScreen.storyboard in Resources */,
 				068E56A71D829F8C00FF6806 /* LiveVC.xib in Resources */,
+				068C8E5B1D8F90BC00F4E3E4 /* SpeedView.xib in Resources */,
 				0684B2AC1D81464500D10603 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,10 +395,13 @@
 				0684B2D91D8159C400D10603 /* NSString+path.m in Sources */,
 				068E56A61D829F8C00FF6806 /* LiveVC.m in Sources */,
 				0684B2DE1D816CC700D10603 /* VideoRecordVC.m in Sources */,
-				0644CF831D87A91200D35055 /* IJKMediaPlayerVC.m in Sources */,
 				0684B2D51D8154CF00D10603 /* AudioRecordVC.m in Sources */,
+				068C8E5F1D8FCBD900F4E3E4 /* UIView+extension.m in Sources */,
+				064E41E81D8EA1C5006BAEED /* LiveControlView.m in Sources */,
 				0684B2CF1D81496000D10603 /* MainVC.m in Sources */,
+				068C8E591D8F90AB00F4E3E4 /* SpeedView.m in Sources */,
 				0684B2A41D81464500D10603 /* AppDelegate.m in Sources */,
+				064E41E31D8E9A92006BAEED /* IJKLiveVC.m in Sources */,
 				0684B2A11D81464500D10603 /* main.m in Sources */,
 				0644CF801D879F3D00D35055 /* IJKPlayerVC.m in Sources */,
 				0683A5921D865B630017F421 /* FYProgressHUD.m in Sources */,
@@ -468,8 +511,10 @@
 			baseConfigurationReference = 8A363FF6D6D9A4989F95A212 /* Pods-AudioAndVideo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = PD5DSFUB55;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioAndVideo",
@@ -477,9 +522,11 @@
 				INFOPLIST_FILE = AudioAndVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo2;
+				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -488,8 +535,10 @@
 			baseConfigurationReference = 99CF2E6B7C0353DB9C1364F5 /* Pods-AudioAndVideo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = PD5DSFUB55;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioAndVideo",
@@ -497,9 +546,10 @@
 				INFOPLIST_FILE = AudioAndVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo2;
+				PRODUCT_BUNDLE_IDENTIFIER = LY.AudioAndVideo3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

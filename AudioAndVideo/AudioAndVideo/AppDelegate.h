@@ -13,5 +13,10 @@
 @property (strong, nonatomic) UIWindow *window;
 
 
+/**
+ 系统版本
+ */
+@property (nonatomic,assign)CGFloat systemVersion;
+
 @end
 
