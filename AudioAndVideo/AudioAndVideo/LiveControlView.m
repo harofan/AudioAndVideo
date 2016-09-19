@@ -142,6 +142,10 @@
     //双击(播放暂停)
     UITapGestureRecognizer * doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapAction:)];
     [doubleTap setNumberOfTapsRequired:2];
+    
+    //当双击手势不生效时单点手势才会生效
+    [tap requireGestureRecognizerToFail:doubleTap];
+    
     [self addGestureRecognizer:doubleTap];
     
     //平移(快进,音量,亮度)
@@ -172,7 +176,12 @@
  */
 -(void)doubleTapAction:(UITapGestureRecognizer *)doubleTapGesture{
     
+    [self showControl];
+    
+    [self changePlayState];
 }
+
+
 
 /**
  平移
@@ -181,6 +190,23 @@
  */
 -(void)panAction:(UIPanGestureRecognizer *)panGesture{
     
+    
+    
 }
 
+#pragma mark -  播放器
+
+/**
+ 改变播放器状态
+ */
+-(void)changePlayState{
+    
+    if ([self.playerDelegate isPlaying] ) {
+        [self.playerDelegate pause];
+    }else{
+        [self.playerDelegate play];
+    }
+    
+    self.playBtn.selected = [self.playerDelegate isPlaying];
+}
 @end

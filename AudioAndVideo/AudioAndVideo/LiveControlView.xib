@@ -122,6 +122,7 @@
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pNr-fR-dlX">
                             <state key="normal" image="player_pause_iphone_fullscreen"/>
+                            <state key="selected" image="player_start_iphone_fullscreen"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -166,5 +167,6 @@
         <image name="player_more" width="30" height="30"/>
         <image name="player_pause_iphone_fullscreen" width="80" height="71"/>
         <image name="player_share" width="27" height="20"/>
+        <image name="player_start_iphone_fullscreen" width="80" height="71"/>
     </resources>
 </document>
