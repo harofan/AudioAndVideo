@@ -19,7 +19,7 @@
 #define screenSize [UIScreen mainScreen].bounds.size
 
 
-@interface IJKLiveVC ()<LiveControlDelegate>
+@interface IJKLiveVC ()
 
 @property(atomic,strong)id <IJKMediaPlayback> player;
 
@@ -42,6 +42,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    
+    //隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     
     self.view.backgroundColor = [UIColor orangeColor];
     
@@ -88,8 +92,6 @@
     
     //创建控制页面
     LiveControlView * liveControlView = [LiveControlView viewFromXib];
-    
-    liveControlView.delegateVC = self;
     
     liveControlView.playerDelegate = self.player;
     

@@ -8,21 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol LiveControlDelegate <NSObject>
+#import <IJKMediaFramework/IJKMediaFramework.h>
 
-@end
 
 @interface LiveControlView : UIView
 
 /**
  遵守代理的控制器
  */
-@property(nonatomic,weak)id<LiveControlDelegate>delegateVC;
+@property(nonatomic,weak)UIViewController* delegateVC;
 
 
 /**
  遵守代理控制器的播放器
  */
-@property(nonatomic,weak)id<LiveControlDelegate>playerDelegate;
+@property(nonatomic,weak)id<IJKMediaPlayback>playerDelegate;
 
 @end

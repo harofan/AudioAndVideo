@@ -8,6 +8,8 @@
 
 #import "LiveControlView.h"
 
+
+
 @interface  LiveControlView()
 
 //覆盖层
@@ -62,22 +64,29 @@
     self.alpha = 1.0;
     
     self.isShowCoverView = YES;
+    
 }
 
 
 -(void)awakeFromNib{
+
     
     [super awakeFromNib];
+
+    self.backgroundColor = [UIColor clearColor];
     
     //初始化,默认不隐藏,且透明度为1
     [self initialization];
     
+    [self createGesture];
     
+    [self createUpUI];
+
 }
 #pragma mark -  UI
 -(void)createUpUI{
     
-    
+    self.coverView.backgroundColor = [UIColor clearColor];
 }
 
 /**
@@ -85,8 +94,18 @@
  */
 -(void)hideControl{
     
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade]
+    if (self.isShowCoverView == NO) {
+        return;
+    }
     
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    
+    //渐隐动画
+    [UIView animateWithDuration:0.5 animations:^{
+        self.coverView.alpha = 0;
+    }completion:^(BOOL finished) {
+        self.isShowCoverView = NO;
+    }];
     
 }
 
@@ -96,6 +115,18 @@
  */
 -(void)showControl{
     
+    if (self.isShowCoverView == YES) {
+        return;
+    }
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.coverView.alpha = 1;
+    } completion:^(BOOL finished) {
+        self.isShowCoverView = YES;
+    }];
 }
 
 #pragma mark -  手势以及手势方法
@@ -126,7 +157,9 @@
 -(void)tapaction:(UITapGestureRecognizer *)tapGesture{
     
     if (tapGesture.state == UIGestureRecognizerStateRecognized) {
+        
         self.isShowCoverView?[self hideControl]:[self showControl];
+        
     }
     
 }
@@ -149,4 +182,5 @@
 -(void)panAction:(UIPanGestureRecognizer *)panGesture{
     
 }
+
 @end

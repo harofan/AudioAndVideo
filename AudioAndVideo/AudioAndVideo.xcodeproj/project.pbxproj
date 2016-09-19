@@ -84,6 +84,7 @@
 		068C8E5A1D8F90BC00F4E3E4 /* SpeedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpeedView.xib; sourceTree = "<group>"; };
 		068C8E5D1D8FCBD900F4E3E4 /* UIView+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+extension.h"; sourceTree = "<group>"; };
 		068C8E5E1D8FCBD900F4E3E4 /* UIView+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+extension.m"; sourceTree = "<group>"; };
+		068C8E601D8FDC4E00F4E3E4 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		068E56A31D829F8C00FF6806 /* LiveVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveVC.h; sourceTree = "<group>"; };
 		068E56A41D829F8C00FF6806 /* LiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveVC.m; sourceTree = "<group>"; };
 		068E56A51D829F8C00FF6806 /* LiveVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveVC.xib; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 				0684B2B81D81476300D10603 /* AudioToolbox.framework */,
 				0684B2B61D8146F800D10603 /* IJKMediaFramework.framework */,
 				0684B2A01D81464500D10603 /* main.m */,
+				068C8E601D8FDC4E00F4E3E4 /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -519,6 +521,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioAndVideo",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PRODUCT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = AudioAndVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -543,6 +546,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioAndVideo",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PRODUCT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = AudioAndVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
