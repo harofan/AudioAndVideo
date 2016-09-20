@@ -20,6 +20,7 @@
 
 #import "IJKLiveVC.h"
 
+
 @interface IJKPlayerVC ()
 
 @end
@@ -70,21 +71,30 @@
         make.bottom.equalTo(livePlayBtn.top).offset(-20);
         
     }];
-    
+    //直播按钮点击
     [[livePlayBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         
         IJKLiveVC * liveVC = [[IJKLiveVC alloc] init];
         
         liveVC.url = @"http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8";
         
+        liveVC.isLiveVC = YES;
+        
 //        liveVC.url = @"https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
         
         [self.navigationController pushViewController:liveVC animated:YES];
         
     }];
-    
+    //视频播放按钮点击
     [[netVideoBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         
+        IJKLiveVC * liveVC = [[IJKLiveVC alloc] init];
+        
+        liveVC.isLiveVC = NO;
+        
+        liveVC.url = @"http://60.190.28.52/c31.aipai.com/user/107/35831107/6571752/card/38774421/card.mp4";
+        
+        [self.navigationController pushViewController:liveVC animated:YES];
         
     }];
 }

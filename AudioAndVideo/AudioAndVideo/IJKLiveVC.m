@@ -14,8 +14,6 @@
 
 #import "LiveControlView.h"
 
-#import "UIView+extension.h"
-
 #define screenSize [UIScreen mainScreen].bounds.size
 
 
@@ -90,9 +88,9 @@
     
     self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    //创建控制页面
-    LiveControlView * liveControlView = [LiveControlView viewFromXib];
-    
+    //创建控制页面,同时确定控制页面类型
+    LiveControlView * liveControlView = [LiveControlView viewFromXibWith:self.isLiveVC];
+
     liveControlView.playerDelegate = self.player;
     
     CGFloat width = MAX(screenSize.width, screenSize.height);
