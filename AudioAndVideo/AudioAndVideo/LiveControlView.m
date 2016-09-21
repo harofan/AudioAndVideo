@@ -19,8 +19,12 @@
 //返回按钮
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;
 
+#pragma mark -  中间区域
 //播放按钮
 @property (weak, nonatomic) IBOutlet UIButton *playBtn;
+
+/** 定义一个实例变量，保存滑动方向枚举值 */
+@property (nonatomic, assign) PanDirection panDirection;
 
 #pragma mark -  下半部分UI属性
 //播放进度滑块
@@ -45,10 +49,14 @@
 //是否正在调节音量
 @property (nonatomic ,assign) BOOL isVolume;
 
-//是否是直播控制器
-//@property (nonatomic ,assign) BOOL isLiveVC;
+//计时器
+@property (nonatomic ,strong)NSTimer * timer;
 
+//拖动开始时间
+@property (nonatomic ,assign)NSTimeInterval  beginTime;
 
+//拖动总时间
+@property (nonatomic ,assign)NSTimeInterval  sumTime;
 //@property (nonatomic ,assign)
 
 @end
@@ -64,29 +72,7 @@ static BOOL isLiveVCType;
     return controlView;
 }
 
-//-(void)setIsLiveVC:(BOOL)isLiveVC{
-//    
-//    _isLiveVC = isLiveVC;
-//    
-//    
-//    
-//   
-//}
 #pragma mark -  初始化
--(instancetype)init{
-    
-    if (self = [super init]) {
-        
-    }
-    return self;
-}
-
--(void)drawRect:(CGRect)rect{
-    
-    [super drawRect:rect];
-    
-//    [self createUpUI];
-}
 
 /**
  初始化控制页面,并设置透明度
@@ -103,8 +89,6 @@ static BOOL isLiveVCType;
 -(void)awakeFromNib{
     
     [super awakeFromNib];
-    
-//    NSLog(@"|||||||||||||||||||||||||c%d c||||||||||||||||||||",self.isLiveVC);
 
     self.backgroundColor = [UIColor clearColor];
     
@@ -115,7 +99,7 @@ static BOOL isLiveVCType;
     
     [self createUpUI];
    
-
+    [self configVolume];
 }
 #pragma mark -  UI
 -(void)createUpUI{
@@ -251,9 +235,126 @@ static BOOL isLiveVCType;
 -(void)panAction:(UIPanGestureRecognizer *)panGesture{
     
     //直播功能暂不提供进度拖拽
+    //获取现在位置
+    CGPoint locationPoint = [panGesture locationInView:panGesture.view];
+    
+    //算出一个移动后的point
+    CGPoint velocityPoint = [panGesture velocityInView:panGesture.view];
+    
+    switch (panGesture.state) {
+        //手势开始
+        case UIGestureRecognizerStateBegan:
+        {
+            //使用绝对值来判断移动的方向
+            CGFloat x = fabs(velocityPoint.x);
+            CGFloat y = fabs(velocityPoint.y);
+            
+            //横向移动(进度条)
+            if (x>y) {
+                
+                //记录横向移动状态
+                _panDirection = PanDirectionHorizontalMoved;
+                
+                //暂停计时
+                [self.timer setFireDate:[NSDate distantFuture]];
+                
+                //获取拖拽开始时间
+                _beginTime = [_playerDelegate currentPlaybackTime];
+                _sumTime = _beginTime;
+                
+            }else if(x<y){
+            //纵向移动(亮度和音量)
+                
+                //记录纵向移动状态
+                _panDirection = PanDirectionVerticalMoved;
+                
+                if (locationPoint.x>self.frame.size.width/2) {
+                    //声音
+                    self.isVolume = YES;
+                    
+                } else {
+                    //亮度
+                    self.isVolume = NO;
+                }
+            }
+        }
+            break;
+        //手势改变
+        case UIGestureRecognizerStateChanged:
+        {
+            
+            switch (_panDirection) {
+                case PanDirectionVerticalMoved:
+                {
+                    //纵向移动
+                    [self panOnVertical:velocityPoint.x];
+                    
+                }
+                    break;
+                case PanDirectionHorizontalMoved:
+                {
+                    //横向移动
+                    [self panOnHorizontal:velocityPoint.y];
+                    
+                }
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+            break;
+        //手势结束
+        case UIGestureRecognizerStateEnded:
+        {
+            switch (_panDirection) {
+                case PanDirectionHorizontalMoved:
+                {
+                    //开启定时器
+                    [_timer setFireDate:[NSDate date]];
+                    
+                    //视频跳转
+                    [_playerDelegate setCurrentPlaybackTime:_sumTime];
+                    
+                    //清零否则会累加
+                    _sumTime = 0;
+                    
+                }
+                    break;
+                    
+                case PanDirectionVerticalMoved:
+                {
+                    
+                    _isVolume = NO;
+                    
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+            
+
+            
+        default:
+            break;
+    }
     
 }
 
+-(void)panOnVertical:(CGFloat)value{
+    
+    
+    _isVolume?(_volumeSlider.value += value/5000):([UIScreen mainScreen].brightness-=value/10000);
+    
+}
+
+-(void)panOnHorizontal:(CGFloat)value{
+    
+}
 #pragma mark -  播放器
 
 /**
@@ -268,5 +369,18 @@ static BOOL isLiveVCType;
     }
     
     self.playBtn.selected = [self.playerDelegate isPlaying];
+}
+
+#pragma mark -  音量和亮度
+-(void)configVolume{
+    
+    MPVolumeView *volumeView = [[MPVolumeView alloc] init];
+    _volumeSlider = nil;
+    for (UIView *view in [volumeView subviews]){
+        if ([view.class.description isEqualToString:@"MPVolumeSlider"]){
+            _volumeSlider = (UISlider *)view;
+            break;
+        }
+    }
 }
 @end
