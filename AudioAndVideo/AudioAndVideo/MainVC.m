@@ -24,6 +24,8 @@
 
 #import "IJKPlayerVC.h"
 
+#import "VideoEncodeVC.h"
+
 @interface MainVC ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -90,6 +92,9 @@
         case 3:
             cell.textLabel.text = @"播放器搭建";
             break;
+        case 4:
+            cell.textLabel.text = @"视频流编码";
+            break;
         default:
             break;
     }
@@ -134,7 +139,13 @@
         }
             break;
             
+        case 4:
+        {
+            VideoEncodeVC * vc = [[VideoEncodeVC alloc]init];
             
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
             
         default:
             break;
