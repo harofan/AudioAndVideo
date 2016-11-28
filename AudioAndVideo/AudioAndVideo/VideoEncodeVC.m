@@ -10,7 +10,40 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface VideoEncodeVC ()<AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface VideoEncodeVC ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureAudioDataOutputSampleBufferDelegate>
+
+//前摄像头输入
+@property(nonatomic,strong)AVCaptureDeviceInput *frontCamera;
+
+//后摄像头输入
+@property(nonatomic,strong)AVCaptureDeviceInput *backCamera;
+
+//当前使用的视频设备
+@property(nonatomic,weak)AVCaptureDeviceInput *videoInputDevice;
+
+//音频设备输入
+@property(nonatomic,strong)AVCaptureDeviceInput *audioInputDevice;
+
+//输出数据接收
+@property(nonatomic,strong)AVCaptureVideoDataOutput *videoDataOutput;
+@property(nonatomic,strong)AVCaptureAudioDataOutput *audioDataOutput;
+
+//会话
+@property(nonatomic,strong)AVCaptureSession *captureSession;
+
+//预览
+@property(nonatomic,strong) AVCaptureVideoPreviewLayer *previewLayer;
+
+
+
+
+
+
+
+
+
+
+
 
 @end
 
@@ -22,97 +55,152 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-   //开始获取数据
-    [self startGetData];
+
+}
+
+
+#pragma mark -  采集
+/**
+ 开始采集
+ */
+-(void)startCollectData{
     
-    //开始编码
-    [self encode];
+    //创建音视频输入
+    [self createCaptureDevice];
+    
+    //创建输出
+    [self createOutput];
+    
+    //创建会话
+    [self createCaptureSession];
+    
+    //创建预览
+    [self createPreviewLayer];
+    
+    //开始会话
+    [self.captureSession startRunning];
 }
 
 
 /**
- 开始获取数据
+ 创建音视频输入
  */
--(void)startGetData{
+-(void)createCaptureDevice{
     
-    //创建后置摄像头
-    AVCaptureDevice * avCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    //创建摄像头
+    NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     
-    //打开摄像头
-    NSError * error = nil;
+    //初始化摄像头
+    self.frontCamera = [AVCaptureDeviceInput deviceInputWithDevice:videoDevices.lastObject error:nil];
+    self.backCamera = [AVCaptureDeviceInput deviceInputWithDevice:videoDevices.firstObject error:nil];
     
-    //创建输入设备
-    AVCaptureDeviceInput * videoInput = [AVCaptureDeviceInput deviceInputWithDevice:avCaptureDevice error:&error];
+    //麦克风
+    AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+    self.audioInputDevice = [AVCaptureDeviceInput deviceInputWithDevice:audioDevice error:nil];
     
-    //创建失败
-    if (!videoInput) {
-        
-        NSLog(@"%@",error);
-        
-        return;
-    }
+    //设置当前视频输入设备
+    self.videoInputDevice = self.backCamera;
+}
+
+
+/**
+ 创建输出
+ */
+-(void)createOutput{
     
-    //创建会话,将输入输出结合在一起,并可以开始自动捕获设备
-    AVCaptureSession *avCaptureSession = [[AVCaptureSession alloc]init];
+    //创建队列
+    dispatch_queue_t queue = dispatch_queue_create(DISPATCH_QUEUE_PRIORITY_DEFAULT, NULL);
     
-    //设置采集质量
-    avCaptureSession.sessionPreset = AVCaptureSessionPresetHigh;//默认就为高
+    //创建视频输出数据
+    self.videoDataOutput = [[AVCaptureVideoDataOutput alloc]init];
     
-    //添加输入流
-    [avCaptureSession addInput:videoInput];
+    //设置代理和队列
+    [self.videoDataOutput setSampleBufferDelegate:self queue:queue];
     
-    //采集数据从视频
-    AVCaptureVideoDataOutput * avCaptureVideoDataOutput = [[AVCaptureVideoDataOutput alloc]init];
+    //默认为是,是否丢弃以前的帧
+    self.videoDataOutput.alwaysDiscardsLateVideoFrames = YES;
     
     //设置参数
     NSDictionary * settings = @{(__bridge id)kCVPixelBufferPixelFormatTypeKey:@(kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange)};
+    self.videoDataOutput.videoSettings = settings;
     
-    avCaptureVideoDataOutput.videoSettings = settings;
+    //创建音频输出数据
+    self.audioDataOutput = [[AVCaptureAudioDataOutput alloc]init];
+    [self.audioDataOutput setSampleBufferDelegate:self queue:queue];
+}
+
+
+/**
+ 创建会话
+ */
+-(void)createCaptureSession{
     
-    //创建队列
-    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
+    self.captureSession = [[AVCaptureSession alloc]init];
     
-    //设置代理和队列
-    [avCaptureVideoDataOutput setSampleBufferDelegate:self queue:queue];
+    [self.captureSession beginConfiguration];
     
-    //会话添加输出
-    [avCaptureSession addOutput:avCaptureVideoDataOutput];
+    //添加视频输入
+    if ([self.captureSession canAddInput:self.videoInputDevice]) {
+        [self.captureSession addInput:self.videoInputDevice];
+    }
     
-    //添加预览界面
-    AVCaptureVideoPreviewLayer * previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:avCaptureSession];
+    //添加音频输入
+    if ([self.captureSession canAddInput:self.audioInputDevice]) {
+        [self.captureSession addInput:self.audioInputDevice];
+    }
     
-    previewLayer.frame = self.view.frame;
+    //添加视频输出
+    if([self.captureSession canAddOutput:self.videoDataOutput]){
+        [self.captureSession addOutput:self.videoDataOutput];
+//        [self setVideoOutConfig];
+    }
     
-    //保留纵横比
-    previewLayer.videoGravity = AVVideoScalingModeResizeAspectFill;
+    //添加音频输出
+    if([self.captureSession canAddOutput:self.audioDataOutput]){
+        [self.captureSession addOutput:self.audioDataOutput];
+    }
     
-    [self.view.layer addSublayer:previewLayer];
+    //设置采集质量
+//    if (![self.captureSession canSetSessionPreset:self.captureSessionPreset]) {
+//        @throw [NSException exceptionWithName:@"Not supported captureSessionPreset" reason:[NSString stringWithFormat:@"captureSessionPreset is [%@]", self.captureSessionPreset] userInfo:nil];
+//    }
     
-    [avCaptureSession startRunning];
+    //设置采集质量
+    self.captureSession.sessionPreset = AVCaptureSessionPresetHigh;//默认就为高
+    
+    [self.captureSession commitConfiguration];
 
 }
 
 
-
 /**
- 编码
+ 创建预览
  */
--(void)encode{
+-(void)createPreviewLayer{
     
+    self.previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
     
+    self.previewLayer.frame = self.view.frame;
     
+    //保留纵横比
+    self.previewLayer.videoGravity = AVVideoScalingModeResizeAspectFill;
     
+    [self.view.layer addSublayer:self.previewLayer];
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+}
+
+-(void) setVideoOutConfig{
+    for (AVCaptureConnection *conn in self.videoDataOutput.connections) {
+        if (conn.isVideoStabilizationSupported) {
+            [conn setPreferredVideoStabilizationMode:AVCaptureVideoStabilizationModeAuto];
+        }
+        if (conn.isVideoOrientationSupported) {
+            [conn setVideoOrientation:AVCaptureVideoOrientationPortrait];
+        }
+        if (conn.isVideoMirrored) {
+            [conn setVideoMirrored: YES];
+        }
+    }
 }
 
 #pragma mark -  delegate
