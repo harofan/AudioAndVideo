@@ -289,19 +289,19 @@
 
    
         if ([self.videoDataOutput isEqual:captureOutput]) {
-            //捕获到视频数据，通过sendVideoSampleBuffer发送出去，后续文章会解释接下来的详细流程。
+            //捕获到视频数据
             
             //将视频数据转换成YUV420数据
-           NSData *yuv420Data = [self convertVideoSampleToYUV420:sampleBuffer];
-            NSLog(@"==================================================");
+            NSData *yuv420Data = [self convertVideoSampleToYUV420:sampleBuffer];
             
-            NSLog(@"%@",yuv420Data);
-            
-            NSLog(@"==================================================");
 //            [self sendVideoSampleBuffer:sampleBuffer];
         }else if([self.audioDataOutput isEqual:captureOutput]){
-            //捕获到音频数据，通过sendVideoSampleBuffer发送出去
-//            [self sendAudioSampleBuffer:sampleBuffer];
+            //捕获到音频数据
+
+            //音频数据转PCM
+            NSData *pcmData = [self convertAudioSampleToYUV420:sampleBuffer];
+            
+            NSLog(@"%@",pcmData);
         }
     
 }
@@ -331,7 +331,7 @@
     uint8_t *yuv_frame = malloc(uv_size + y_size);
     
     //清0
-    memset(yuv_frame, 0, sizeof(yuv_frame));
+    memset(yuv_frame, 0, y_size+uv_size);
     
     
     //获取CVImageBufferRef中的y数据
@@ -347,6 +347,28 @@
     
     //返回数据
     return [NSData dataWithBytesNoCopy:yuv_frame length:y_size+uv_size];
+}
+
+-(NSData *)convertAudioSampleToYUV420:(CMSampleBufferRef)audioSample{
+    
+    //获取pcm数据大小
+    NSInteger audioDataSize = CMSampleBufferGetTotalSampleSize(audioSample);
+
+    //分配空间
+    int8_t *audio_data = malloc(audioDataSize);
+    
+    //清0
+    memset(audio_data, 0, audioDataSize);
+    
+    //获取CMBlockBufferRef
+    //这个结构里面就保存了 PCM数据
+    CMBlockBufferRef dataBuffer = CMSampleBufferGetDataBuffer(audioSample);
+    
+    //直接将数据copy至我们自己分配的内存中
+    CMBlockBufferCopyDataBytes(dataBuffer, 0, audioDataSize, audio_data);
+    
+    //返回数据
+    return [NSData dataWithBytesNoCopy:audio_data length:audioDataSize];
 }
 
 @end
