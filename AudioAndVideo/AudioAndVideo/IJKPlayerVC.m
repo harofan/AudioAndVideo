@@ -34,6 +34,11 @@
     [self setupUI];
 }
 
+-(void)dealloc{
+    
+    NSLog(@"销毁了");
+}
+
 -(void)setupUI{
     
     self.navigationController.navigationBar.hidden = YES;

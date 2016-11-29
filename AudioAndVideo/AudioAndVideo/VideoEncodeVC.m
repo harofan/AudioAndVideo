@@ -34,30 +34,35 @@
 //预览
 @property(nonatomic,strong) AVCaptureVideoPreviewLayer *previewLayer;
 
-
-
-
-
-
-
-
-
-
-
-
 @end
 
 @implementation VideoEncodeVC
 
+#pragma mark -  生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-
+    //开始采集
+    [self startCollectData];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    
+    
+}
+
+-(void)dealloc{
+    
+    [self destroyCaptureSession];
+    
+    NSLog(@"销毁了");
+    
+}
 
 #pragma mark -  采集
 /**
@@ -264,12 +269,35 @@
     _videoInputDevice = videoInputDevice;
 }
 
+
+/**
+ 销毁
+ */
+-(void) destroyCaptureSession{
+    if (self.captureSession) {
+        [self.captureSession removeInput:self.audioInputDevice];
+        [self.captureSession removeInput:self.videoInputDevice];
+        [self.captureSession removeOutput:self.self.videoDataOutput];
+        [self.captureSession removeOutput:self.self.audioDataOutput];
+    }
+    self.captureSession = nil;
+}
+
+
 #pragma mark -  delegate
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
 
    
         if ([self.videoDataOutput isEqual:captureOutput]) {
             //捕获到视频数据，通过sendVideoSampleBuffer发送出去，后续文章会解释接下来的详细流程。
+            
+            //将视频数据转换成YUV420数据
+           NSData *yuv420Data = [self convertVideoSampleToYUV420:sampleBuffer];
+            NSLog(@"==================================================");
+            
+            NSLog(@"%@",yuv420Data);
+            
+            NSLog(@"==================================================");
 //            [self sendVideoSampleBuffer:sampleBuffer];
         }else if([self.audioDataOutput isEqual:captureOutput]){
             //捕获到音频数据，通过sendVideoSampleBuffer发送出去
@@ -277,4 +305,48 @@
         }
     
 }
+
+#pragma mark -  SmapleBuffer转换
+-(NSData *)convertVideoSampleToYUV420:(CMSampleBufferRef)videoSample{
+    
+    // 获取yuv数据
+    // 通过CMSampleBufferGetImageBuffer方法，获得CVImageBufferRef。
+    // 这里面就包含了yuv420(NV12)数据的指针
+    CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(videoSample);
+    
+    //表示开始操作数据
+    CVPixelBufferLockBaseAddress(pixelBuffer, 0);
+    
+    //图像宽度（像素）
+    size_t pixelWidth = CVPixelBufferGetWidth(pixelBuffer);
+    //图像高度（像素）
+    size_t pixelHeight = CVPixelBufferGetHeight(pixelBuffer);
+    
+    //yuv中的y所占字节数
+    size_t y_size = pixelWidth * pixelHeight;
+    //yuv中的uv所占的字节数
+    size_t uv_size = y_size / 2;
+    
+    //开创空间
+    uint8_t *yuv_frame = malloc(uv_size + y_size);
+    
+    //清0
+    memset(yuv_frame, 0, sizeof(yuv_frame));
+    
+    
+    //获取CVImageBufferRef中的y数据
+    uint8_t *y_frame = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);
+    memcpy(yuv_frame, y_frame, y_size);
+    
+    //获取CMVImageBufferRef中的uv数据
+    uint8_t *uv_frame = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 1);
+    memcpy(yuv_frame+y_size, uv_frame, uv_size);
+    
+    //锁定操作
+    CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+    
+    //返回数据
+    return [NSData dataWithBytesNoCopy:yuv_frame length:y_size+uv_size];
+}
+
 @end

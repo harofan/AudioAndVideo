@@ -26,6 +26,9 @@
 
 #import "VideoEncodeVC.h"
 
+#import "GPUImageVC.h"
+
+
 @interface MainVC ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -95,6 +98,9 @@
         case 4:
             cell.textLabel.text = @"视频流编码";
             break;
+        case 5:
+            cell.textLabel.text = @"GPUImage滤镜美颜";
+            break;
         default:
             break;
     }
@@ -147,6 +153,13 @@
         }
             break;
             
+        case 5:
+        {
+            GPUImageVC * vc = [[GPUImageVC alloc]init];
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
         default:
             break;
     }
