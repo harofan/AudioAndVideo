@@ -41,13 +41,16 @@
 @implementation VideoEncodeVC
 {
     //编码队列
-    dispatch_queue_t _mEncodeQueue;
+    dispatch_queue_t _encodeQueue;
     
     //帧编号
     int _frameID;
     
     //编码回话
     VTCompressionSessionRef _encodeingSession;
+    
+    //文件
+    NSFileHandle * _fileHandle;
 }
 
 #pragma mark -  生命周期
@@ -97,8 +100,12 @@
     //初始化VideoToolBox硬编码
     [self initVideoToolBox];
     
+    //管理文件写入
+    [self createFileHandle];
+    
     //开始会话
     [self.captureSession startRunning];
+    
 }
 
 
@@ -198,6 +205,18 @@
     //提交配置变更
     [self.captureSession commitConfiguration];
 
+}
+
+
+/**
+ 管理文件写入
+ */
+-(void)createFileHandle{
+    // 视频编码保存的路径
+    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"test.h264"];
+    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil]; // 移除旧文件
+    [[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil]; // 创建新文件
+    _fileHandle = [NSFileHandle fileHandleForWritingAtPath:filePath];  // 管理写进文件
 }
 
 
@@ -306,14 +325,21 @@
             //捕获到视频数据
             
             //将视频数据转换成YUV420数据
-            NSData *yuv420Data = [self convertVideoSampleToYUV420:sampleBuffer];
+//            NSData *yuv420Data = [self convertVideoSampleToYUV420:sampleBuffer];
+            
+            dispatch_sync(_encodeQueue, ^{
+                
+                // 摄像头采集后的图像是未编码的CMSampleBuffer形式，
+                [self videoEncode:sampleBuffer];
+                
+            });
             
 //            [self sendVideoSampleBuffer:sampleBuffer];
         }else if([self.audioDataOutput isEqual:captureOutput]){
             //捕获到音频数据
 
             //音频数据转PCM
-            NSData *pcmData = [self convertAudioSampleToYUV420:sampleBuffer];
+//            NSData *pcmData = [self convertAudioSampleToYUV420:sampleBuffer];
             
         }
     
@@ -402,10 +428,10 @@
 -(void)initVideoToolBox{
     
     //创建编码队列
-    _mEncodeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    _encodeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     //同步
-    dispatch_sync(_mEncodeQueue, ^{
+    dispatch_sync(_encodeQueue, ^{
        
         _frameID = 0;
         
@@ -469,16 +495,143 @@
     
 }
 
+/**
+ *  h.264硬编码完成后回调 VTCompressionOutputCallback
+ *  将硬编码成功的CMSampleBuffer转换成H264码流，通过网络传播
+ *  解析出参数集SPS和PPS，加上开始码后组装成NALU。提取出视频数据，将长度码转换成开始码，组长成NALU。将NALU发送出去。
+ */
+
 //编码完成后回调
-void didCompressH264(){
+void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStatus status, VTEncodeInfoFlags infoFlags, CMSampleBufferRef sampleBuffer){
     
+    NSLog(@"didCompressH264 called with status %d infoFlags %d", (int)status, (int)infoFlags);
+    //状态错误
+    if (status != 0) {
+        return;
+    }
+    
+    //没准备好
+    if (!CMSampleBufferDataIsReady(sampleBuffer)) {
+        
+        NSLog(@"didCompressH264 data is not ready ");
+        return;
+    }
+    
+    VideoEncodeVC * encoder = (__bridge VideoEncodeVC*)outputCallbackRefCon;
+    
+    bool keyframe = !CFDictionaryContainsKey( (CFArrayGetValueAtIndex(CMSampleBufferGetSampleAttachmentsArray(sampleBuffer, true), 0)), kCMSampleAttachmentKey_NotSync);
+    
+    // 判断当前帧是否为关键帧 获取sps & pps 数据
+    // 解析出参数集SPS和PPS，加上开始码后组装成NALU。提取出视频数据，将长度码转换成开始码，组长成NALU。将NALU发送出去。
+    if (keyframe) {
+        
+        // CMVideoFormatDescription：图像存储方式，编解码器等格式描述
+        CMFormatDescriptionRef format = CMSampleBufferGetFormatDescription(sampleBuffer);
+        // sps
+        size_t sparameterSetSize, sparameterSetCount;
+        const uint8_t *sparameterSet;
+        OSStatus statusSPS = CMVideoFormatDescriptionGetH264ParameterSetAtIndex(format, 0, &sparameterSet, &sparameterSetSize, &sparameterSetCount, 0);
+        if (statusSPS == noErr) {
+            
+            // Found sps and now check for pps
+            // pps
+            size_t pparameterSetSize, pparameterSetCount;
+            const uint8_t *pparameterSet;
+            OSStatus statusPPS = CMVideoFormatDescriptionGetH264ParameterSetAtIndex(format, 1, &pparameterSet, &pparameterSetSize, &pparameterSetCount, 0);
+            if (statusPPS == noErr) {
+                
+                // found sps pps
+                NSData *sps = [NSData dataWithBytes:sparameterSet length:sparameterSetSize];
+                NSData *pps = [NSData dataWithBytes:pparameterSet length:pparameterSetSize];
+                if (encoder) {
+                    
+                    [encoder gotSPS:sps withPPS:pps];
+                }
+            }
+        }
+    }
+    
+    // 编码后的图像，以CMBlockBuffe方式存储
+    CMBlockBufferRef dataBuffer = CMSampleBufferGetDataBuffer(sampleBuffer);
+    size_t length, totalLength;
+    char *dataPointer;
+    OSStatus statusCodeRet = CMBlockBufferGetDataPointer(dataBuffer, 0, &length, &totalLength, &dataPointer);
+    if (statusCodeRet == noErr) {
+        
+        size_t bufferOffSet = 0;
+        // 返回的nalu数据前四个字节不是0001的startcode，而是大端模式的帧长度length
+        static const int AVCCHeaderLength = 4;
+        
+        // 循环获取nalu数据
+        while (bufferOffSet < totalLength - AVCCHeaderLength) {
+            
+            uint32_t NALUUnitLength = 0;
+            // Read the NAL unit length
+            memcpy(&NALUUnitLength, dataPointer + bufferOffSet, AVCCHeaderLength);
+            // 从大端转系统端
+            NALUUnitLength = CFSwapInt32BigToHost(NALUUnitLength);
+            NSData *data = [[NSData alloc] initWithBytes:(dataPointer + bufferOffSet + AVCCHeaderLength) length:NALUUnitLength];
+            [encoder gotEncodedData:data isKeyFrame:keyframe];
+            
+            // Move to the next NAL unit in the block buffer
+            bufferOffSet += AVCCHeaderLength + NALUUnitLength;
+        }
+    }
 }
--(void)videoEncode:(CMSampleBufferRef)videoSample{
+
+//传入PPS和SPS,写入到文件
+- (void)gotSPS:(NSData *)sps withPPS:(NSData *)pps{
     
-    //创建session
-    int width = 1080,height = 1920;
+    NSLog(@"gotSPSAndPPS %d withPPS %d", (int)[sps length], (int)[pps length]);
+    const char bytes[] = "\x00\x00\x00\x01";
+    size_t length = (sizeof bytes) - 1;
+    NSData *byteHeader = [NSData dataWithBytes:bytes length:length];
+    [_fileHandle writeData:byteHeader];
+    [_fileHandle writeData:sps];
+    [_fileHandle writeData:byteHeader];
+    [_fileHandle writeData:pps];
+}
+
+- (void)gotEncodedData:(NSData *)data isKeyFrame:(BOOL)isKeyFrame {
     
+    NSLog(@"gotEncodedData %d", (int)[data length]);
+    if (_fileHandle != NULL) {
+        
+        const char bytes[]= "\x00\x00\x00\x01";
+        size_t lenght = (sizeof bytes) - 1;
+        NSData *byteHeader = [NSData dataWithBytes:bytes length:lenght];
+        [_fileHandle writeData:byteHeader];
+        [_fileHandle writeData:data];
+    }
+}
+/**
+ 视频编码
+
+ @param videoSample <#videoSample description#>
+ */
+-(void)videoEncode:(CMSampleBufferRef)videoSampleBuffer{
     
+    // CVPixelBufferRef 编码前图像数据结构
+    // 利用给定的接口函数CMSampleBufferGetImageBuffer从中提取出CVPixelBufferRef
+    CVImageBufferRef imageBuffer = (CVImageBufferRef)CMSampleBufferGetImageBuffer(videoSampleBuffer);
+    
+    // 帧时间, 如果不设置会导致时间轴过长
+    CMTime presentationTimeStamp = CMTimeMake(_frameID++, 1000);
+    VTEncodeInfoFlags flags;
+    
+    // 使用硬编码接口VTCompressionSessionEncodeFrame来对该帧进行硬编码
+    // 编码成功后，会自动调用session初始化时设置的回调函数
+    OSStatus statusCode = VTCompressionSessionEncodeFrame(_encodeingSession, imageBuffer, presentationTimeStamp, kCMTimeInvalid, NULL, NULL, &flags);
+    
+    if (statusCode != noErr) {
+        NSLog(@"H264: VTCompressionSessionEncodeFrame failed with %d", (int)statusCode);
+        VTCompressionSessionInvalidate(_encodeingSession);
+        CFRelease(_encodeingSession);
+        _encodeingSession = NULL;
+        return;
+    }
+    
+    NSLog(@"H264: VTCompressionSessionEncodeFrame Success : %d", (int)statusCode);
 }
 
 
