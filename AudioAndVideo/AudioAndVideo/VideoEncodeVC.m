@@ -10,6 +10,8 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+#import <VideoToolbox/VideoToolbox.h>
+
 @interface VideoEncodeVC ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureAudioDataOutputSampleBufferDelegate>
 
 //前摄像头输入
@@ -37,6 +39,16 @@
 @end
 
 @implementation VideoEncodeVC
+{
+    //编码队列
+    dispatch_queue_t _mEncodeQueue;
+    
+    //帧编号
+    int _frameID;
+    
+    //编码回话
+    VTCompressionSessionRef _encodeingSession;
+}
 
 #pragma mark -  生命周期
 - (void)viewDidLoad {
@@ -81,6 +93,9 @@
     
     //创建预览
     [self createPreviewLayer];
+    
+    //初始化VideoToolBox硬编码
+    [self initVideoToolBox];
     
     //开始会话
     [self.captureSession startRunning];
@@ -287,7 +302,6 @@
 #pragma mark -  delegate
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
 
-   
         if ([self.videoDataOutput isEqual:captureOutput]) {
             //捕获到视频数据
             
@@ -301,7 +315,6 @@
             //音频数据转PCM
             NSData *pcmData = [self convertAudioSampleToYUV420:sampleBuffer];
             
-            NSLog(@"%@",pcmData);
         }
     
 }
@@ -370,5 +383,103 @@
     //返回数据
     return [NSData dataWithBytesNoCopy:audio_data length:audioDataSize];
 }
+
+#pragma mark -  VideoToolBox 硬编码
+/*
+ 1、-initVideoToolBox中调用VTCompressionSessionCreate创建编码session，然后调用VTSessionSetProperty设置参数，最后调用VTCompressionSessionPrepareToEncodeFrames开始编码；
+ 2、开始视频录制，获取到摄像头的视频帧，传入-encode:，调用VTCompressionSessionEncodeFrame传入需要编码的视频帧，如果返回失败，调用VTCompressionSessionInvalidate销毁session，然后释放session；
+ 3、每一帧视频编码完成后会调用预先设置的编码函数didCompressH264，如果是关键帧需要用CMSampleBufferGetFormatDescription获取CMFormatDescriptionRef，然后用
+ CMVideoFormatDescriptionGetH264ParameterSetAtIndex取得PPS和SPS；
+ 最后把每一帧的所有NALU数据前四个字节变成0x00 00 00 01之后再写入文件；
+ 4、调用VTCompressionSessionCompleteFrames完成编码，然后销毁session：VTCompressionSessionInvalidate，释放session。
+ 
+ */
+
+
+/**
+ 初始化videoToolBox
+ */
+-(void)initVideoToolBox{
+    
+    //创建编码队列
+    _mEncodeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    //同步
+    dispatch_sync(_mEncodeQueue, ^{
+       
+        _frameID = 0;
+        
+        //给定宽高,过高的话会编码失败
+        int width = 1920 , height = 1080;
+        
+        /**
+         创建编码会话
+
+         @param allocator#> 会话的分配器,传入NULL默认 description#>
+         @param width#> 帧宽 description#>
+         @param height#> 帧高 description#>
+         @param codecType#> 编码器类型 description#>
+         @param encoderSpecification#> 指定必须使用的特定视频编码器。通过空来让视频工具箱选择一个编码器。 description#>
+         @param sourceImageBufferAttributes#> 像素缓存池源帧 description#>
+         @param compressedDataAllocator#> 压缩数据分配器,默认为空 description#>
+         @param outputCallback#> 回调函数,图像编码成功后调用 description#>
+         @param outputCallbackRefCon#> 客户端定义的输出回调的参考值。 description#>
+         @param compressionSessionOut#> 指向一个变量，以接收新的压缩会话 description#>
+         @return <#return value description#>
+         */
+        OSStatus status = VTCompressionSessionCreate(NULL, width, height, kCMVideoCodecType_H264, NULL, NULL, NULL, didCompressH264, (__bridge void *)(self), &_encodeingSession);
+        
+        NSLog(@"H264状态:VTCompressionSessionCreate %d",(int)status);
+        
+        if (status != 0) {
+            
+            NSLog(@"H264会话创建失败");
+            return ;
+        }
+        
+        //设置实时编码输出(避免延迟)
+        VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_RealTime, kCFBooleanTrue);
+        VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_ProfileLevel, kVTProfileLevel_H264_Baseline_AutoLevel);
+        
+        // 设置关键帧（GOPsize)间隔
+        int frameInterval = 10;
+        CFNumberRef  frameIntervalRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &frameInterval);
+        VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_MaxKeyFrameInterval, frameIntervalRef);
+        
+        // 设置期望帧率,不是实际帧率
+        int fps = 10;
+        CFNumberRef fpsRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &fps);
+        VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_ExpectedFrameRate, fpsRef);
+
+        //设置码率，上限，单位是bps
+        int bitRate = width * height * 3 * 4 * 8;
+        CFNumberRef bitRateRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &bitRate);
+        VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_AverageBitRate, bitRateRef);
+        
+        // 设置码率，均值，单位是byte
+        int bitRateLimit = width * height * 3 * 4;
+        CFNumberRef bitRateLimitRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &bitRateLimit);
+        VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_DataRateLimits, bitRateLimitRef);
+        
+        //可以开始编码
+        VTCompressionSessionPrepareToEncodeFrames(_encodeingSession);
+        
+    });
+    
+    
+}
+
+//编码完成后回调
+void didCompressH264(){
+    
+}
+-(void)videoEncode:(CMSampleBufferRef)videoSample{
+    
+    //创建session
+    int width = 1080,height = 1920;
+    
+    
+}
+
 
 @end
