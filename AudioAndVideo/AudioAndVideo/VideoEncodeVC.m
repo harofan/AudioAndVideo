@@ -51,6 +51,9 @@
     
     //文件
     NSFileHandle * _fileHandle;
+    
+    //是否开始了硬编码
+    BOOL _isStartHardEncoding;
 }
 
 #pragma mark -  生命周期
@@ -64,19 +67,19 @@
     [self startCollectData];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [super viewWillDisappear:animated];
-    
-    
-}
-
 -(void)dealloc{
     
     [self destroyCaptureSession];
     
     NSLog(@"销毁了");
     
+}
+
+#pragma mark -  初始化
+-(void)doInit{
+    
+    //默认没有开始硬编码
+    _isStartHardEncoding = 0;
 }
 
 #pragma mark -  采集
@@ -221,6 +224,16 @@
 
 
 /**
+ 关闭文件写入
+ */
+-(void)closeFileHandle{
+    
+    //视频文件
+    [_fileHandle closeFile];
+    _fileHandle = NULL;
+}
+
+/**
  创建预览
  */
 -(void)createPreviewLayer{
@@ -314,7 +327,17 @@
         [self.captureSession removeOutput:self.self.videoDataOutput];
         [self.captureSession removeOutput:self.self.audioDataOutput];
     }
+    
+    [self.captureSession stopRunning];
     self.captureSession = nil;
+    
+    if (_isStartHardEncoding) {
+        
+        //结束硬编码
+        [self stopHardCoding];
+        _isStartHardEncoding = 0;
+    }
+    
 }
 
 
@@ -328,6 +351,9 @@
 //            NSData *yuv420Data = [self convertVideoSampleToYUV420:sampleBuffer];
             
             dispatch_sync(_encodeQueue, ^{
+                
+                //开始硬编码
+                _isStartHardEncoding = 1;
                 
                 // 摄像头采集后的图像是未编码的CMSampleBuffer形式，
                 [self videoEncode:sampleBuffer];
@@ -635,4 +661,32 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
 }
 
 
+/**
+ 结束编码
+ */
+- (void)endVideoToolBox{
+    
+    VTCompressionSessionCompleteFrames(_encodeingSession, kCMTimeInvalid);
+    VTCompressionSessionInvalidate(_encodeingSession);
+    CFRelease(_encodeingSession);
+    _encodeingSession = NULL;
+}
+
+
+/**
+ 停止硬编码
+ */
+-(void)stopHardCoding{
+    
+    if (_encodeingSession) {
+        
+        [self endVideoToolBox];
+    }
+    
+    if (_fileHandle) {
+        
+        [self closeFileHandle];
+    }
+    
+}
 @end
