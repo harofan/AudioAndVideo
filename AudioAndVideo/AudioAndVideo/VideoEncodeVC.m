@@ -12,6 +12,8 @@
 
 #import <VideoToolbox/VideoToolbox.h>
 
+#import "AACEncode.h"
+
 @interface VideoEncodeVC ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureAudioDataOutputSampleBufferDelegate>
 
 //前摄像头输入
@@ -36,6 +38,14 @@
 //预览
 @property(nonatomic,strong) AVCaptureVideoPreviewLayer *previewLayer;
 
+//AAC编码工具类
+@property(nonatomic,strong) AACEncode * aacEncode;
+
+////输出视频流
+//@property(nonatomic,strong)AVCaptureConnection * videoConnection;
+//
+////输出音频流
+//@property(nonatomic,strong)AVCaptureConnection * audioConnection;
 @end
 
 @implementation VideoEncodeVC
@@ -49,8 +59,11 @@
     //编码回话
     VTCompressionSessionRef _encodeingSession;
     
-    //文件
+    //视频文件
     NSFileHandle * _fileHandle;
+    
+    //音频文件
+    NSFileHandle * _audioFileHandle;
     
     //是否开始了硬编码
     BOOL _isStartHardEncoding;
@@ -77,6 +90,9 @@
 
 #pragma mark -  初始化
 -(void)doInit{
+    
+    //创建音频编码工具类
+    self.aacEncode = [[AACEncode alloc]init];
     
     //默认没有开始硬编码
     _isStartHardEncoding = 0;
@@ -220,6 +236,12 @@
     [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil]; // 移除旧文件
     [[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil]; // 创建新文件
     _fileHandle = [NSFileHandle fileHandleForWritingAtPath:filePath];  // 管理写进文件
+    
+    //音频编码保存的路径
+    NSString *audioFile = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"abc.aac"];
+    [[NSFileManager defaultManager] removeItemAtPath:audioFile error:nil];
+    [[NSFileManager defaultManager] createFileAtPath:audioFile contents:nil attributes:nil];
+    _audioFileHandle = [NSFileHandle fileHandleForWritingAtPath:audioFile];
 }
 
 
@@ -462,7 +484,7 @@
         _frameID = 0;
         
         //给定宽高,过高的话会编码失败
-        int width = 1920 , height = 1080;
+        int width = 640 , height = 480;
         
         /**
          创建编码会话
@@ -493,7 +515,7 @@
         VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_RealTime, kCFBooleanTrue);
         VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_ProfileLevel, kVTProfileLevel_H264_Baseline_AutoLevel);
         
-        // 设置关键帧（GOPsize)间隔
+        // 设置关键帧（GOPsize)间隔,gop太小的话有时候图像会糊
         int frameInterval = 10;
         CFNumberRef  frameIntervalRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &frameInterval);
         VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_MaxKeyFrameInterval, frameIntervalRef);
@@ -504,13 +526,14 @@
         VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_ExpectedFrameRate, fpsRef);
 
         //设置码率，上限，单位是bps
-        int bitRate = width * height * 3 * 4 * 8;
+        int bitRate = width * height * 3 * 4 * 8 ;
         CFNumberRef bitRateRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &bitRate);
         VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_AverageBitRate, bitRateRef);
         
         // 设置码率，均值，单位是byte
-        int bitRateLimit = width * height * 3 * 4;
+        int bitRateLimit = width * height * 3 * 4 ;
         CFNumberRef bitRateLimitRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &bitRateLimit);
+        NSLog(@"码率%@",bitRateLimitRef);
         VTSessionSetProperty(_encodeingSession, kVTCompressionPropertyKey_DataRateLimits, bitRateLimitRef);
         
         //可以开始编码
@@ -674,7 +697,7 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
 
 
 /**
- 停止硬编码
+ 停止视频硬编码
  */
 -(void)stopHardCoding{
     
@@ -689,4 +712,6 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     }
     
 }
+
+
 @end
