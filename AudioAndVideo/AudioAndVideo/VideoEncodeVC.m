@@ -76,6 +76,8 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self doInit];
+    
     //开始采集
     [self startCollectData];
 }
@@ -90,6 +92,9 @@
 
 #pragma mark -  初始化
 -(void)doInit{
+    
+    //创建编码队列
+    _encodeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     //创建音频编码工具类
     self.aacEncode = [[AACEncode alloc]init];
@@ -253,6 +258,9 @@
     //视频文件
     [_fileHandle closeFile];
     _fileHandle = NULL;
+    
+    [_audioFileHandle closeFile];
+    _audioFileHandle = NULL;
 }
 
 /**
@@ -272,6 +280,8 @@
 }
 
 -(void) setVideoOutConfig{
+    
+    //视频防抖
     for (AVCaptureConnection *conn in self.videoDataOutput.connections) {
         if (conn.isVideoStabilizationSupported) {
             [conn setPreferredVideoStabilizationMode:AVCaptureVideoStabilizationModeAuto];
@@ -368,6 +378,7 @@
 
         if ([self.videoDataOutput isEqual:captureOutput]) {
             //捕获到视频数据
+            NSLog(@"视频");
             
             //将视频数据转换成YUV420数据
 //            NSData *yuv420Data = [self convertVideoSampleToYUV420:sampleBuffer];
@@ -385,7 +396,18 @@
 //            [self sendVideoSampleBuffer:sampleBuffer];
         }else if([self.audioDataOutput isEqual:captureOutput]){
             //捕获到音频数据
+            NSLog(@"音频");
 
+            //AudioToolBox PCM->AAC硬编码
+            dispatch_sync(_encodeQueue, ^{
+                
+                [self.aacEncode encodeSampleBuffer:sampleBuffer completionBlock:^(NSData *encodedData, NSError *error) {
+                    [_audioFileHandle writeData:encodedData];
+                    NSLog(@"%@",_audioFileHandle);
+                    
+                }];
+            });
+            
             //音频数据转PCM
 //            NSData *pcmData = [self convertAudioSampleToYUV420:sampleBuffer];
             
@@ -475,8 +497,7 @@
  */
 -(void)initVideoToolBox{
     
-    //创建编码队列
-    _encodeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
     
     //同步
     dispatch_sync(_encodeQueue, ^{
@@ -553,7 +574,7 @@
 //编码完成后回调
 void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStatus status, VTEncodeInfoFlags infoFlags, CMSampleBufferRef sampleBuffer){
     
-    NSLog(@"didCompressH264 called with status %d infoFlags %d", (int)status, (int)infoFlags);
+//    NSLog(@"didCompressH264 called with status %d infoFlags %d", (int)status, (int)infoFlags);
     //状态错误
     if (status != 0) {
         return;
@@ -631,7 +652,7 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
 //传入PPS和SPS,写入到文件
 - (void)gotSPS:(NSData *)sps withPPS:(NSData *)pps{
     
-    NSLog(@"gotSPSAndPPS %d withPPS %d", (int)[sps length], (int)[pps length]);
+//    NSLog(@"gotSPSAndPPS %d withPPS %d", (int)[sps length], (int)[pps length]);
     const char bytes[] = "\x00\x00\x00\x01";
     size_t length = (sizeof bytes) - 1;
     NSData *byteHeader = [NSData dataWithBytes:bytes length:length];
@@ -643,7 +664,7 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
 
 - (void)gotEncodedData:(NSData *)data isKeyFrame:(BOOL)isKeyFrame {
     
-    NSLog(@"gotEncodedData %d", (int)[data length]);
+//    NSLog(@"gotEncodedData %d", (int)[data length]);
     if (_fileHandle != NULL) {
         
         const char bytes[]= "\x00\x00\x00\x01";
@@ -680,7 +701,7 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
         return;
     }
     
-    NSLog(@"H264: VTCompressionSessionEncodeFrame Success : %d", (int)statusCode);
+//    NSLog(@"H264: VTCompressionSessionEncodeFrame Success : %d", (int)statusCode);
 }
 
 
