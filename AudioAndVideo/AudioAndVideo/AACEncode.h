@@ -4,6 +4,7 @@
 //
 //  Created by fy on 2016/12/1.
 //  Copyright © 2016年 LY. All rights reserved.
+//  默认情况下，Apple会创建一个硬件编码器，如果硬件不可用，会创建软件编码器。
 //
 
 #import <Foundation/Foundation.h>

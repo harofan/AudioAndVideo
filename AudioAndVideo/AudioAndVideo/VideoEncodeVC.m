@@ -12,7 +12,9 @@
 
 #import <VideoToolbox/VideoToolbox.h>
 
-#import "AACEncode.h"
+#import "AACEncode.h" //苹果自带的
+
+
 
 @interface VideoEncodeVC ()<AVCaptureVideoDataOutputSampleBufferDelegate,AVCaptureAudioDataOutputSampleBufferDelegate>
 
@@ -40,6 +42,7 @@
 
 //AAC编码工具类
 @property(nonatomic,strong) AACEncode * aacEncode;
+
 
 ////输出视频流
 //@property(nonatomic,strong)AVCaptureConnection * videoConnection;
@@ -408,6 +411,8 @@
                 }];
             });
             
+
+            
             //音频数据转PCM
 //            NSData *pcmData = [self convertAudioSampleToYUV420:sampleBuffer];
             
@@ -733,6 +738,7 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     }
     
 }
+
 
 
 @end
