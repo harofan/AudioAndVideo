@@ -28,6 +28,8 @@
 
 #import "GPUImageVC.h"
 
+#import "FFmpegAACEncodeVC.h"
+
 
 @interface MainVC ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -101,6 +103,9 @@
         case 5:
             cell.textLabel.text = @"GPUImage滤镜美颜";
             break;
+        case 6:
+            cell.textLabel.text = @"FFmpeg PCM->AAC";
+            break;
         default:
             break;
     }
@@ -156,6 +161,14 @@
         case 5:
         {
             GPUImageVC * vc = [[GPUImageVC alloc]init];
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        case 6:
+        {
+            FFmpegAACEncodeVC * vc = [[FFmpegAACEncodeVC alloc]init];
             
             [self.navigationController pushViewController:vc animated:YES];
         }
