@@ -47,26 +47,24 @@
 @implementation LiveVC
 
 #pragma mark -  懒加载
--(LFLiveSession *)session{
-    
-    
-    if (nil == _session) {
-        /**
-         默认音频质量 audio sample rate: 44MHz(默认44.1Hz iphoneg6以上48Hz), audio bitrate: 64Kbps
-         分辨率： 540 *960 帧数：30 码率：800Kps
-         方向竖屏
-         */
-        
-        // 视频配置(质量 & 是否是横屏)可以点进去看
-        _session = [[LFLiveSession alloc] initWithAudioConfiguration:[LFLiveAudioConfiguration defaultConfiguration] videoConfiguration:[LFLiveVideoConfiguration defaultConfigurationForQuality:LFLiveVideoQuality_Medium3 landscape:NO]];
-        
-        _session.delegate = self;
-        _session.showDebugInfo = self;
-        _session.preView = self.view;
-    }
-    
-    return _session;
-}
+        -(LFLiveSession *)session{
+            
+            if (nil == _session) {
+                /**
+                 默认音频质量 audio sample rate: 44MHz(默认44.1Hz iphoneg6以上48Hz), audio bitrate: 64Kbps
+                 分辨率： 540 *960 帧数：30 码率：800Kps
+                 方向竖屏
+                 */
+                
+                // 视频配置(质量 & 是否是横屏)可以点进去看
+                _session = [[LFLiveSession alloc] initWithAudioConfiguration:[LFLiveAudioConfiguration defaultConfiguration] videoConfiguration:[LFLiveVideoConfiguration defaultConfigurationForQuality:LFLiveVideoQuality_Medium3 landscape:NO]];
+                
+                _session.delegate = self;
+                _session.showDebugInfo = self;
+                _session.preView = self.view;
+            }
+            return _session;
+        }
 
 #pragma mark -  生命周期
 - (void)viewDidLoad {
@@ -75,9 +73,9 @@
     //设置UI
     [self createupUI];
     
-    //闪光灯
     _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
+    //闪光灯
     _torchMode = AVCaptureTorchModeOff;
     
     //开始直播按钮
@@ -200,36 +198,36 @@
     }
 }
 
--(void)liveSession:(LFLiveSession *)session liveStateDidChange:(LFLiveState)state{
-    self.liveStateLabel.textColor = [UIColor blackColor];
-    switch (state) {
-        case LFLiveReady:
-            NSLog(@"未连接");
-            self.liveStateLabel.text = @"未连接";
-            break;
-        case LFLivePending:
-            NSLog(@"连接中");
-            [FYProgressHUD showWithMessage:@"正在连接..."];
-            self.liveStateLabel.text = @"正在连接...";
-            break;
-        case LFLiveStart:
-            NSLog(@"已连接");
-            [FYProgressHUD showSuccess:@"连接成功"];
-            self.liveStateLabel.text = @"正在直播";
-            break;
-        case LFLiveError:
-            NSLog(@"连接错误");
-            [FYProgressHUD showError:@"连接错误"];
-            self.liveStateLabel.text = @"未连接";
-            break;
-        case LFLiveStop:
-            self.liveStateLabel.text = @"未连接";
-            NSLog(@"未连接");
-            break;
-        default:
-            break;
-    }
-}
+        -(void)liveSession:(LFLiveSession *)session liveStateDidChange:(LFLiveState)state{
+            self.liveStateLabel.textColor = [UIColor blackColor];
+            switch (state) {
+                case LFLiveReady:
+                    NSLog(@"未连接");
+                    self.liveStateLabel.text = @"未连接";
+                    break;
+                case LFLivePending:
+                    NSLog(@"连接中");
+                    [FYProgressHUD showWithMessage:@"正在连接..."];
+                    self.liveStateLabel.text = @"正在连接...";
+                    break;
+                case LFLiveStart:
+                    NSLog(@"已连接");
+                    [FYProgressHUD showSuccess:@"连接成功"];
+                    self.liveStateLabel.text = @"正在直播";
+                    break;
+                case LFLiveError:
+                    NSLog(@"连接错误");
+                    [FYProgressHUD showError:@"连接错误"];
+                    self.liveStateLabel.text = @"未连接";
+                    break;
+                case LFLiveStop:
+                    self.liveStateLabel.text = @"未连接";
+                    NSLog(@"未连接");
+                    break;
+                default:
+                    break;
+            }
+        }
 
 
 #pragma mark -  UI

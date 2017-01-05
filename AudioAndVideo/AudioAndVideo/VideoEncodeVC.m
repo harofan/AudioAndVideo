@@ -206,7 +206,7 @@
     //添加视频输出
     if([self.captureSession canAddOutput:self.videoDataOutput]){
         [self.captureSession addOutput:self.videoDataOutput];
-//        [self setVideoOutConfig];
+        //        [self setVideoOutConfig];
     }
     
     //添加音频输出
@@ -222,16 +222,16 @@
     //但是这样做是不够、不完整的，最好的方案是，根据设备，提供不同的分辨率。
     //如果必须要用一个不支持的分辨率，那么需要根据需求对数据和预览进行裁剪，缩放。
     //设置采集质量
-//    if (![self.captureSession canSetSessionPreset:self.captureSessionPreset]) {
-//        @throw [NSException exceptionWithName:@"Not supported captureSessionPreset" reason:[NSString stringWithFormat:@"captureSessionPreset is [%@]", self.captureSessionPreset] userInfo:nil];
-//    }
+    //    if (![self.captureSession canSetSessionPreset:self.captureSessionPreset]) {
+    //        @throw [NSException exceptionWithName:@"Not supported captureSessionPreset" reason:[NSString stringWithFormat:@"captureSessionPreset is [%@]", self.captureSessionPreset] userInfo:nil];
+    //    }
     
     //设置采集质量
     self.captureSession.sessionPreset = AVCaptureSessionPresetHigh;//默认就为高
     
     //提交配置变更
     [self.captureSession commitConfiguration];
-
+    
 }
 
 

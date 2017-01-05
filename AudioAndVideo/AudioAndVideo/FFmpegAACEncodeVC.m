@@ -48,6 +48,9 @@
     int frameNumber = 1000;
     int i;
     
+    int gotFrame = 0;
+    int ret = 0;
+    
     //文件路径
     NSString *inFilePath = [[NSBundle mainBundle]pathForResource:@"tdjm.pcm" ofType:nil];
     
@@ -190,8 +193,20 @@
         //播放时间戳
         _pFrame->pts = i * 100;
         
+        gotFrame = 0;
         
+        //编码
         
+        /**
+         编码一个音频AVFrame为AVPacket。
+
+         @param avctx#> <#avctx#> description#>
+         @param avpkt#> <#avpkt#> description#>
+         @param frame#> <#frame#> description#>
+         @param got_packet_ptr#> <#got_packet_ptr#> description#>
+         @return <#return value description#>
+         */
+//        ret = avcodec_encode_audio2(<#AVCodecContext *avctx#>, <#AVPacket *avpkt#>, <#const AVFrame *frame#>, <#int *got_packet_ptr#>)
         
         
         
