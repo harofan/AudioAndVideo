@@ -1,2 +1,5 @@
 # AudioAndVideo
 音视频采集,合成,直播等
+
+## 使用注意事项
+其实本项目是不应该引入RAC框架的,这里如果不做处理会因为SWIFT版本问题导致无法运行,建议在Xcode8.0以后对pod中的ReactiveCocoa和Result这两个Target的Build Setting中的Use Legacy Swift Lanuage Version设为yes就可以运行了
