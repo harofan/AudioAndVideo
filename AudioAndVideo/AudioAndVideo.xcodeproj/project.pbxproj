@@ -11,6 +11,7 @@
 		0644CF801D879F3D00D35055 /* IJKPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0644CF7F1D879F3D00D35055 /* IJKPlayerVC.m */; };
 		064E41E31D8E9A92006BAEED /* IJKLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 064E41E21D8E9A92006BAEED /* IJKLiveVC.m */; };
 		064E41E81D8EA1C5006BAEED /* LiveControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 064E41E71D8EA1C5006BAEED /* LiveControlView.m */; };
+		067FCF8A1DF7B54800CF8ADC /* tdjm.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 067FCF891DF7AAE400CF8ADC /* tdjm.pcm */; };
 		0683A5921D865B630017F421 /* FYProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0683A5911D865B630017F421 /* FYProgressHUD.m */; };
 		0684B2A11D81464500D10603 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A01D81464500D10603 /* main.m */; };
 		0684B2A41D81464500D10603 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684B2A31D81464500D10603 /* AppDelegate.m */; };
@@ -66,6 +67,7 @@
 		064E41E21D8E9A92006BAEED /* IJKLiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKLiveVC.m; sourceTree = "<group>"; };
 		064E41E61D8EA1C5006BAEED /* LiveControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveControlView.h; sourceTree = "<group>"; };
 		064E41E71D8EA1C5006BAEED /* LiveControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveControlView.m; sourceTree = "<group>"; };
+		067FCF891DF7AAE400CF8ADC /* tdjm.pcm */ = {isa = PBXFileReference; lastKnownFileType = file; path = tdjm.pcm; sourceTree = "<group>"; };
 		0683A5901D865B630017F421 /* FYProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYProgressHUD.h; sourceTree = "<group>"; };
 		0683A5911D865B630017F421 /* FYProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYProgressHUD.m; sourceTree = "<group>"; };
 		0684B29C1D81464500D10603 /* AudioAndVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioAndVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -503,6 +505,34 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		067FCF861DF7AA6200CF8ADC /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				0683A5901D865B630017F421 /* FYProgressHUD.h */,
+				0683A5911D865B630017F421 /* FYProgressHUD.m */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
+		067FCF871DF7AA7300CF8ADC /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				0684B2D71D8159C400D10603 /* NSString+path.h */,
+				0684B2D81D8159C400D10603 /* NSString+path.m */,
+				068C8E5D1D8FCBD900F4E3E4 /* UIView+extension.h */,
+				068C8E5E1D8FCBD900F4E3E4 /* UIView+extension.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		067FCF881DF7AAC700CF8ADC /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				067FCF891DF7AAE400CF8ADC /* tdjm.pcm */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
 		0684B2931D81464500D10603 = {
 			isa = PBXGroup;
 			children = (
@@ -525,12 +555,8 @@
 		0684B29E1D81464500D10603 /* AudioAndVideo */ = {
 			isa = PBXGroup;
 			children = (
-				0683A5901D865B630017F421 /* FYProgressHUD.h */,
-				0683A5911D865B630017F421 /* FYProgressHUD.m */,
-				0684B2D71D8159C400D10603 /* NSString+path.h */,
-				0684B2D81D8159C400D10603 /* NSString+path.m */,
-				068C8E5D1D8FCBD900F4E3E4 /* UIView+extension.h */,
-				068C8E5E1D8FCBD900F4E3E4 /* UIView+extension.m */,
+				067FCF871DF7AA7300CF8ADC /* Category */,
+				067FCF861DF7AA6200CF8ADC /* Tools */,
 				06F833511DF6BCA2008AB774 /* FFmpegAACEncode */,
 				060BF96E1DEC2244000216CB /* GPUImage */,
 				06A559051DE6BB2A00775104 /* SystemVideoEncode */,
@@ -554,6 +580,7 @@
 		0684B29F1D81464500D10603 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				067FCF881DF7AAC700CF8ADC /* Resource */,
 				0684B2CA1D8148DF00D10603 /* CoreVideo.framework */,
 				0684B2C81D8148C300D10603 /* libbz2.tbd */,
 				0684B2C61D8148BA00D10603 /* libz.tbd */,
@@ -1127,6 +1154,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				067FCF8A1DF7B54800CF8ADC /* tdjm.pcm in Resources */,
 				0684B2D61D8154CF00D10603 /* AudioRecordVC.xib in Resources */,
 				0684B2D01D81496000D10603 /* MainVC.xib in Resources */,
 				068C8E561D8F78E300F4E3E4 /* LiveControlView.xib in Resources */,
